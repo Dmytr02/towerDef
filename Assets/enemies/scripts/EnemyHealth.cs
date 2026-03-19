@@ -2,17 +2,13 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth = 100;
-    public float currentHealth;
+    private EnemyData enemyData;
+    private float currentHealth;
 
-    public int coinReward = 10;
-    public int livesReward = 1;
-
-    public bool isBoss = false;
-
-    private void Start()
+    public void Initialize(EnemyData data)
     {
-        currentHealth = maxHealth;
+        enemyData = data;
+        currentHealth = data.maxHealth;
     }
 
     public void TakeDamage(float amount)
@@ -29,13 +25,14 @@ public class EnemyHealth : MonoBehaviour
     {
         if (PlayerStats.Instance != null)
         {
-            PlayerStats.Instance.AddCoins(coinReward);
+            PlayerStats.Instance.AddCoins(enemyData.coinReward);
             
-            if (isBoss)
+            if (enemyData.giveLife)
             {
                 PlayerStats.Instance.AddLives();
             }
-        } 
+        }
+
         Destroy(gameObject);
     }
 }
