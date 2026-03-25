@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: cfe17a5463286f7418d8789ba0a71026
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277515
+  packageName: Lightweight Mesh Info
+  packageVersion: 1.1
+  assetPath: Assets/SnowlyGames/LightweightMeshInfo/Script/Editor/LightweightMeshInfo.cs
+  uploadId: 685189
