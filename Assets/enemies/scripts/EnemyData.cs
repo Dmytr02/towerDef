@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "Tower Defense/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    [Header("basic informations")]
+    [Header("basic information")]
     public string enemyName = "Enemy";
     public GameObject prefab;
 
