@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: tile-straight up-down
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: 153466768bb607a4a84ad96db279d394, type: 3}
-  numRightSide: 0
-  numLeftSide: 0
-  numFrontSide: 0
-  numBackSide: 0
-  PossibleRightSide: 
-  PossibleLeftSide: 
-  PossibleFrontSide: 
-  PossibleBackSide: 
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  num: 16843266
+  numRightSide: 33554431
+  numLeftSide: 4278321151
+  numUpSide: 4294902527
+  numDownSide: 4294967042

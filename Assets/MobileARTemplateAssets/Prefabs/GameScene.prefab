@@ -154,7 +154,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 50
   zSize: 50
-  possibleCells: []
+  possibleCells:
+  - {fileID: 11400000, guid: df55ca6601434d14095a1b2806a94302, type: 2}
+  - {fileID: 11400000, guid: 7e70fc874babd614684634b9ca7452b8, type: 2}
+  - {fileID: 11400000, guid: 3b02b8b4e56463c4eaab7798897b0e73, type: 2}
+  - {fileID: 11400000, guid: fdf7252d9713d344fa94d9bebbbc6309, type: 2}
+  - {fileID: 11400000, guid: af6790ac5aa4b254caa01f0fb7ec9be4, type: 2}
+  - {fileID: 11400000, guid: abd67cd16d647664e91a1255ec9f9f46, type: 2}
+  - {fileID: 11400000, guid: a93bc3d3cb4ad6d4cae33715ef11d14c, type: 2}
+  - {fileID: 11400000, guid: bd138e26ed0e1e446af4f6a417cd45a7, type: 2}
   PathCells:
   - {fileID: 0}
   - {fileID: 0}
