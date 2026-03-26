@@ -15,7 +15,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 919132149155446097, guid: 7533d69d70150b34a8a8bef2cd3d71e6, type: 3}
   rotation: {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
   num: 16908546
-  numRightSide: 33554431
-  numLeftSide: 4278386687
-  numUpSide: 4294902271
-  numDownSide: 4294967042
+  numRightSide: 4278321151
+  numLeftSide: 50331647
+  numUpSide: 4294967041
+  numDownSide: 4294902527
