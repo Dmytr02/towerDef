@@ -6,13 +6,12 @@ using UnityEngine.Serialization;
 public class CellOfGrid : ScriptableObject
 {
     public GameObject cellPrefab;
-    public Quaternion rotation;
-    [UintBytesAttribute] public uint num;
+    public Quaternion rotation; 
+    [UintBytesAttribute(Name1 = "right", Name2 = "Up", Name3 = "Left", Name4 = "Down")]
+    public uint num;
     
-    
-    
-    [UintBytesAttribute]  public uint numRightSide;
-    [UintBytesAttribute]  public uint numLeftSide;
-    [UintBytesAttribute]  public uint numUpSide;
-    [UintBytesAttribute]  public uint numDownSide;
+    [UintBytesAttribute(Name1 = "right", Name2 = "Up", Name3 = "Left", Name4 = "Down")]
+    public uint sides;
+
+    public int chance = 1;
 }

@@ -12,7 +12,7 @@
         [SerializeField] private int zSize = 50;
         private int[,] _grid;
         
-        [SerializeField] private List<CellOfGrid> possibleCells = new();
+        [SerializeField, SerializeReference] private List<CellOfGrid> possibleCells = new();
         [SerializeField] private List<CellOfGrid> PathCells = new();
         private void Awake()
         {
@@ -46,14 +46,36 @@
             {
                 buckets[32].Add(new Vector2Int(x, z));
             }
-        
             
-           
-            StartCoroutine(Corutine(buckets, possibleValue));
-        }
+            for(int i = 0; i < way.Length; i++)
+            {
+                int mask = 0;
+                if (i != way.Length - 1)
+                {
+                    if (way[i] + Vector2.down == way[i + 1]) mask |= 1 << 0;
+                    if (way[i] + Vector2.up == way[i + 1]) mask |= 1 << 1;
+                    if (way[i] + Vector2.left == way[i + 1]) mask |= 1 << 2;
+                    if (way[i] + Vector2.right == way[i + 1]) mask |= 1 << 3;
+                }
 
-        IEnumerator Corutine(HashSet<Vector2Int>[] buckets, Dictionary<Vector2Int, uint> possibleValue)
-        {
+                if (i != 0)
+                {
+                    if (way[i] + Vector2.down == way[i - 1]) mask |= 1 << 0;
+                    if (way[i] + Vector2.up == way[i - 1]) mask |= 1 << 1;
+                    if (way[i] + Vector2.left == way[i - 1]) mask |= 1 << 2;
+                    if (way[i] + Vector2.right == way[i - 1]) mask |= 1 << 3;
+                }
+
+                Transform cell = Instantiate(PathCells[mask].cellPrefab, new Vector3(way[i].x/(float)xSize, 0, way[i].y/(float)zSize), PathCells[mask].rotation, transform).transform;
+                cell.localPosition = new Vector3(way[i].x/(float)xSize-0.5f, 1, way[i].y/(float)zSize-0.5f);
+                cell.localRotation = PathCells[mask].rotation;
+                cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
+                cell.name = $"x - {way[i].x}, z - {way[i].y}";
+                SetCell(ref buckets, ref possibleValue, PathCells[mask], way[i].x, way[i].y, 0);
+                RemuveCell(ref buckets, ref possibleValue, way[i]);
+            }
+                
+            
             while (true)
             {
                 (Vector2Int pos, uint mask) current = PopCell(ref buckets, ref possibleValue);
@@ -65,21 +87,28 @@
                 cell.localPosition = new Vector3(current.pos.x/(float)xSize-0.5f, 1, current.pos.y/(float)zSize-0.5f);
                 cell.localRotation = currentIndex.rotation;
                 cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
-                cell.name = $"x - {current.pos.x}, z - {current.pos.y}";
-                SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y, Mathf.RoundToInt(currentIndex.rotation.eulerAngles.y-currentIndex.cell.rotation.eulerAngles.y)/90);
-                yield return null;
+                cell.name = $"x - {current.pos.x}, z - {current.pos.y}, mask - {current.mask}, self - {currentIndex.cell.num}";
+                SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y,  Mathf.RoundToInt((currentIndex.rotation.eulerAngles.y-currentIndex.cell.rotation.eulerAngles.y)/90));
             }
+            //StartCoroutine(Corutine(buckets, possibleValue));
+        }
+
+        IEnumerator Corutine(HashSet<Vector2Int>[] buckets, Dictionary<Vector2Int, uint> possibleValue)
+        {
+            yield return null;
         }
         private void SetCell(ref HashSet<Vector2Int>[] buckets, ref Dictionary<Vector2Int, uint> possibleValue, CellOfGrid cell, int x, int y, int rotation)
         {
-            uint[] sides = new uint[] { cell.numRightSide, cell.numUpSide, cell.numLeftSide, cell.numDownSide};
+            Debug.Log($"rotation - {rotation}");
+            rotation = (rotation + 2) % 4;
+            uint num = (cell.sides << 8 * rotation) | (cell.sides >> 32 - 8 * rotation); 
             
-            SetCell(ref buckets, ref possibleValue, sides[(rotation)%4], new Vector2Int(x - 1, y));
-            SetCell(ref buckets, ref possibleValue, sides[(rotation+1)%4], new Vector2Int(x, y - 1));
-            SetCell(ref buckets, ref possibleValue, sides[(rotation+2)%4], new Vector2Int(x + 1, y));
-            SetCell(ref buckets, ref possibleValue, sides[(rotation+3)%4], new Vector2Int(x, y + 1));
+            SetCell(ref buckets, ref possibleValue, (num&0xFF000000)|0x00FFFFFF, new Vector2Int(x - 1, y));
+            SetCell(ref buckets, ref possibleValue, (num&0x00FF0000)|0xFF00FFFF, new Vector2Int(x, y - 1));
+            SetCell(ref buckets, ref possibleValue, (num&0x0000FF00)|0xFFFF00FF, new Vector2Int(x + 1, y));
+            SetCell(ref buckets, ref possibleValue, (num&0x000000FF)|0xFFFFFF00, new Vector2Int(x, y + 1));
         }
-
+    
         private Vector2Int GetCell(HashSet<Vector2Int>[] buckets)
         {
             for (int i = 0; i < buckets.Length; i++)
@@ -119,6 +148,15 @@
                     buckets[PopCount(possibleValue[cell])].Add(cell);
                 }
         }
+
+        private void RemuveCell(ref HashSet<Vector2Int>[] buckets, ref Dictionary<Vector2Int, uint> possibleValue, Vector2Int cell)
+        {
+            for (int i = 0; i < buckets.Length; i++)
+            {
+                buckets[i].Remove(cell);
+                possibleValue.Remove(cell);
+            }
+        }
         
         public static int PopCount(uint i)
         {
@@ -133,13 +171,13 @@
 
             foreach (var possibleCell in possibleCells)
             {
+                Debug.Log(possibleCell.num + " | " + mask);
                 for (int i = 0; i < 4; i++)
                 {
-                    uint moved = (mask << 8*i) | (mask >> 32-8*i);
-                        Debug.Log(possibleCell.num + " | " +mask);
-                    if ((possibleCell.num & moved) == possibleCell.num)
+                    uint moved = (mask >> 8*i) | (mask << 32-8*i);
+                    if (((((possibleCell.num >> 24) & (moved >> 24)) & 0xFF)!=0) && ((((possibleCell.num >> 16) & (moved >> 16)) & 0xFF)!=0) && ((((possibleCell.num >> 8)  & (moved >> 8))  & 0xFF)!=0) && (((possibleCell.num & moved) & 0xFF)!=0))
                     {
-                        possibleValues.Add((possibleCell, Quaternion.Euler(0f, possibleCell.rotation.eulerAngles.y + 90 * i, 0f)));
+                        for (int j = 0; j < possibleCell.chance; j++) possibleValues.Add((possibleCell, Quaternion.Euler(0f, possibleCell.rotation.eulerAngles.y + 90 * i, 0f)));
                     }
                 } 
             }

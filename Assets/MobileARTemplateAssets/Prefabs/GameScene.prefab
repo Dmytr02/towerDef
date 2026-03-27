@@ -155,22 +155,24 @@ MonoBehaviour:
   xSize: 50
   zSize: 50
   possibleCells:
-  - {fileID: 11400000, guid: fdf7252d9713d344fa94d9bebbbc6309, type: 2}
-  - {fileID: 11400000, guid: abd67cd16d647664e91a1255ec9f9f46, type: 2}
   - {fileID: 11400000, guid: a93bc3d3cb4ad6d4cae33715ef11d14c, type: 2}
-  - {fileID: 11400000, guid: bd138e26ed0e1e446af4f6a417cd45a7, type: 2}
-  - {fileID: 11400000, guid: c731c1e8b80577d4f93be78aa39dabad, type: 2}
-  - {fileID: 11400000, guid: c1aa30dfb7f360a4e92a9a78ffa6ac91, type: 2}
+  - {fileID: 11400000, guid: 699773d232b80834e9ec2594aa93c387, type: 2}
+  - {fileID: 11400000, guid: efc65dbf6684a6b4993d186ad3082dc9, type: 2}
+  - {fileID: 11400000, guid: c5a5a956b48a40b4a8f1964f681a8ffb, type: 2}
+  - {fileID: 11400000, guid: c41b5db25ed992f4cb4bc687489427b7, type: 2}
+  - {fileID: 11400000, guid: 616893577c730d345aace128aa08ee78, type: 2}
+  - {fileID: 11400000, guid: fe72149f3e7ba084e9ab2bbd21de70ef, type: 2}
+  - {fileID: 11400000, guid: eba50e216bde19d4eabb44a2131178a9, type: 2}
   PathCells:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6ddcc9dd33e4c2a4ea8e46f47f8071b2, type: 2}
+  - {fileID: 11400000, guid: c1aa30dfb7f360a4e92a9a78ffa6ac91, type: 2}
   - {fileID: 11400000, guid: abd67cd16d647664e91a1255ec9f9f46, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b8c5e6f9ddb76f942b02246701bc1a7a, type: 2}
   - {fileID: 11400000, guid: df55ca6601434d14095a1b2806a94302, type: 2}
   - {fileID: 11400000, guid: 3b02b8b4e56463c4eaab7798897b0e73, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bbedbbc79d873594d825fa4f26c41bb6, type: 2}
   - {fileID: 11400000, guid: 7e70fc874babd614684634b9ca7452b8, type: 2}
   - {fileID: 11400000, guid: fdf7252d9713d344fa94d9bebbbc6309, type: 2}
   - {fileID: 0}
