@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: dfda05720df20d6469203c9c4477d7ac, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
-  num: 84215045
+  num: 606348324
+  sides: 84215045
+  chance: 10

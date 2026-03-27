@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90aad4b1df8316d48b49240daa5ddc92, type: 3}
   m_Name: river 1
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 919132149155446097, guid: 5a051ad458b00054a80e0f0f88cfaec8, type: 3}
+  cellPrefab: {fileID: 919132149155446097, guid: 9df6159986ed1cb479d50a02df0bb5e0, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
-  num: 17301768
+  num: 554180872
+  sides: 17826064
+  chance: 1
