@@ -16,4 +16,4 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0, w: 0}
   num: 555819297
   sides: 16843009
-  chance: 10
+  chance: 50
