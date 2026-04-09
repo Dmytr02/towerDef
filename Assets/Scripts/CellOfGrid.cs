@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,6 +7,9 @@ using UnityEngine.Serialization;
 public class CellOfGrid : ScriptableObject
 {
     public GameObject cellPrefab;
+    public Material mat;
+    public Mesh mesh;
+
     public Quaternion rotation; 
     [UintBytesAttribute(Name1 = "right", Name2 = "Up", Name3 = "Left", Name4 = "Down")]
     public uint num;

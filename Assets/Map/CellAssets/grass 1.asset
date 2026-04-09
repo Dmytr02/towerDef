@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: grass 1
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: 22df2e77e78fa6f4aaefbe2db41f7dd6, type: 3}
+  mat: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
+  mesh: {fileID: 211560256575091707, guid: 22df2e77e78fa6f4aaefbe2db41f7dd6, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   num: 16908545
   sides: 16908545
