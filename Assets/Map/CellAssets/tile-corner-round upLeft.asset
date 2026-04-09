@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: tile-corner-round upLeft
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: 7533d69d70150b34a8a8bef2cd3d71e6, type: 3}
+  mat: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
+  mesh: {fileID: -8234109544647423627, guid: 7533d69d70150b34a8a8bef2cd3d71e6, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   num: 16908801
   sides: 16908801

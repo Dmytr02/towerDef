@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: tree
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: 292930c511e365b44b73a2731225fe7c, type: 3}
+  mat: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
+  mesh: {fileID: 70948346857766800, guid: 292930c511e365b44b73a2731225fe7c, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   num: 84215045
   sides: 84215045

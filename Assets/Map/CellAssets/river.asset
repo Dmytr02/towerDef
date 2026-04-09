@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: river
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 919132149155446097, guid: a195025859835854da55c45385eed233, type: 3}
+  mat: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
+  mesh: {fileID: 5371320383406589590, guid: a195025859835854da55c45385eed233, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   num: 621809701
   sides: 18356225
