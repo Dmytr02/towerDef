@@ -11,14 +11,23 @@
         [SerializeField] private int xSize = 50;
         [SerializeField] private int zSize = 50;
         private int[,] _grid;
+        private static Vector2Int _gridSize;
+        private static Transform m_transform;
         
         [SerializeField, SerializeReference] private List<CellOfGrid> possibleCells = new();
         [SerializeField] private List<CellOfGrid> PathCells = new();
 
         private Dictionary<CellOfGrid, List<(Vector3 positions, Quaternion quaternion)>> InstancesData = new();
         
+        private static List<Vector2Int> _Path = new List<Vector2Int>();
+
+        public static List<Vector3> Path { get {return _Path.Select(n => m_transform.worldToLocalMatrix.MultiplyPoint((new Vector3((n.x+0.5f)/(float)_gridSize.x-0.5f, 1, (n.y+0.5f)/(float)_gridSize.y-0.5f)))).ToList(); } }
+        
         private void Awake()
         {
+            _gridSize = new Vector2Int(xSize, zSize);
+            m_transform =  transform;
+            Random.seed = 0;
             _grid = new int[xSize, zSize];
             for (int x = 0; x < _grid.GetLength(0); x++)
             {
@@ -40,7 +49,7 @@
         private void Start()
         {
             Vector2Int[] way = WayGenerator.GenerateWay(_grid, new Pair<int, int>(5, 5), new Pair<int, int>(46, 46), new List<Pair<int, int>>() { new Pair<int, int>(0, 1), new Pair<int, int>(1, 0), new Pair<int, int>(0, -1), new Pair<int, int>(-1, 0) }, 1).Select(n => new Vector2Int(n.First, n.Second)).ToArray();
-            
+            _Path = way.ToList();
             HashSet<Vector2Int>[] buckets = new HashSet<Vector2Int>[33].Select(_ => new HashSet<Vector2Int>()).ToArray();
             Dictionary<Vector2Int, uint> possibleValue = new Dictionary<Vector2Int, uint>();
             
@@ -75,7 +84,7 @@
                 cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
                 cell.name = $"x - {way[i].x}, z - {way[i].y}";*/
                 InstancesData.TryAdd(PathCells[mask], new List<(Vector3, Quaternion)>());
-                InstancesData[PathCells[mask]].Add((new Vector3(way[i].x/(float)xSize-0.5f, 1, way[i].y/(float)zSize-0.5f), PathCells[mask].rotation));
+                InstancesData[PathCells[mask]].Add((new Vector3((way[i].x+0.5f)/(float)xSize-0.5f, 1, (way[i].y+0.5f)/(float)zSize-0.5f), PathCells[mask].rotation));
                 SetCell(ref buckets, ref possibleValue, PathCells[mask], way[i].x, way[i].y, 0);
                 RemuveCell(ref buckets, ref possibleValue, way[i]);
             }
@@ -94,7 +103,7 @@
                 cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
                 cell.name = $"x - {current.pos.x}, z - {current.pos.y}, mask - {current.mask}, self - {currentIndex.cell.num}";*/
                 InstancesData.TryAdd(currentIndex.cell, new List<(Vector3, Quaternion)>());
-                InstancesData[currentIndex.cell].Add((new Vector3(current.pos.x/(float)xSize-0.5f, 1, current.pos.y/(float)zSize-0.5f), currentIndex.rotation));
+                InstancesData[currentIndex.cell].Add((new Vector3((current.pos.x+0.5f)/(float)xSize-0.5f, 1, (current.pos.y+0.5f)/(float)zSize-0.5f), currentIndex.rotation));
                 SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y,  Mathf.RoundToInt((currentIndex.rotation.eulerAngles.y-currentIndex.cell.rotation.eulerAngles.y)/90));
             }
             //StartCoroutine(Corutine(buckets, possibleValue));
