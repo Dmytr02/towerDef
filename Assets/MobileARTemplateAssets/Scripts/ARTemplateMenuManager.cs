@@ -303,7 +303,7 @@ namespace UnityEngine.XR.Templates.AR
             else
             {
                 m_IsPointerOverUI = false;
-                m_CreateButton.gameObject.SetActive(true);
+                //m_CreateButton.gameObject.SetActive(true);
                 m_DeleteButton.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
             }
 
