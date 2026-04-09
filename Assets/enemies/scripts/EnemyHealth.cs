@@ -3,11 +3,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class EnemyHealth : MonoBehaviour
-{
-    private EnemyData enemyData;
+{ 
     private float currentHealth;
 
+    [SerializeField] private EnemyData enemyData;
+
     [SerializeField] private EnemyHPbar enemyHPbar;
+
+    private void Awake()
+    {
+        if (enemyData != null)
+        {
+            Initialize(enemyData); // for testing
+        }
+    }
 
     public void Initialize(EnemyData data)
     {
@@ -33,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
         if (enemyData == null) return;
         
         currentHealth -= amount;
-        Debug.Log(gameObject.name + " dostał obrażenia! HP: " + currentHealth);
+        Debug.Log(gameObject.name + " dostal obrazenia HP: " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -41,9 +50,7 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            {
-                enemyHPbar.UpdateHPbar(enemyData.maxHealth, currentHealth);
-            }
+            enemyHPbar.UpdateHPbar(enemyData.maxHealth, currentHealth);
         }
     }
 
@@ -57,6 +64,11 @@ public class EnemyHealth : MonoBehaviour
             {
                 PlayerStats.Instance.AddLives();
             }
+        }
+
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.OnEnemyDied();
         }
 
         Destroy(gameObject);
