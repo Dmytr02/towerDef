@@ -21,13 +21,12 @@
         
         private static List<Vector2Int> _Path = new List<Vector2Int>();
 
-        public static List<Vector3> Path { get {return _Path.Select(n => m_transform.worldToLocalMatrix.MultiplyPoint((new Vector3((n.x+0.5f)/(float)_gridSize.x-0.5f, 1, (n.y+0.5f)/(float)_gridSize.y-0.5f)))).ToList(); } }
-        
+        public static List<Vector3> Path { get {return _Path.Select(n => m_transform.localToWorldMatrix.MultiplyPoint((new Vector3((n.x+0.5f)/(float)_gridSize.x-0.5f, 1, (n.y+0.5f)/(float)_gridSize.y-0.5f)))).ToList(); } }
+        public static Vector3 enemyScale;
         private void Awake()
         {
             _gridSize = new Vector2Int(xSize, zSize);
             m_transform =  transform;
-            Random.seed = 0;
             _grid = new int[xSize, zSize];
             for (int x = 0; x < _grid.GetLength(0); x++)
             {
@@ -78,11 +77,7 @@
                     if (way[i] + Vector2.right == way[i - 1]) mask |= 1 << 3;
                 }
 
-                /*Transform cell = Instantiate(PathCells[mask].cellPrefab, new Vector3(way[i].x/(float)xSize, 0, way[i].y/(float)zSize), PathCells[mask].rotation, transform).transform;
-                cell.localPosition = new Vector3(way[i].x/(float)xSize-0.5f, 1, way[i].y/(float)zSize-0.5f);
-                cell.localRotation = PathCells[mask].rotation;
-                cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
-                cell.name = $"x - {way[i].x}, z - {way[i].y}";*/
+                
                 InstancesData.TryAdd(PathCells[mask], new List<(Vector3, Quaternion)>());
                 InstancesData[PathCells[mask]].Add((new Vector3((way[i].x+0.5f)/(float)xSize-0.5f, 1, (way[i].y+0.5f)/(float)zSize-0.5f), PathCells[mask].rotation));
                 SetCell(ref buckets, ref possibleValue, PathCells[mask], way[i].x, way[i].y, 0);
@@ -97,16 +92,11 @@
                 Debug.Log($"{current.pos}");
                 (CellOfGrid cell, Quaternion rotation) currentIndex = GetRandom(current.mask);
                 
-                /*Transform cell = Instantiate(currentIndex.cell.cellPrefab, new Vector3(current.pos.x/(float)xSize, 0, current.pos.y/(float)zSize), currentIndex.rotation, transform).transform;
-                cell.localPosition = new Vector3(current.pos.x/(float)xSize-0.5f, 1, current.pos.y/(float)zSize-0.5f);
-                cell.localRotation = currentIndex.rotation;
-                cell.localScale = new Vector3(1/(float)xSize, 0.02f, 1/(float)zSize);
-                cell.name = $"x - {current.pos.x}, z - {current.pos.y}, mask - {current.mask}, self - {currentIndex.cell.num}";*/
+              
                 InstancesData.TryAdd(currentIndex.cell, new List<(Vector3, Quaternion)>());
                 InstancesData[currentIndex.cell].Add((new Vector3((current.pos.x+0.5f)/(float)xSize-0.5f, 1, (current.pos.y+0.5f)/(float)zSize-0.5f), currentIndex.rotation));
                 SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y,  Mathf.RoundToInt((currentIndex.rotation.eulerAngles.y-currentIndex.cell.rotation.eulerAngles.y)/90));
             }
-            //StartCoroutine(Corutine(buckets, possibleValue));
         }
 
         private void Update()
@@ -121,6 +111,8 @@
                 }).ToArray() ;
                 Graphics.DrawMeshInstanced(data.Key.mesh, 0, data.Key.mat, matrix);
             }
+
+            enemyScale = transform.lossyScale * 0.01f;
         }
 
         IEnumerator Corutine(HashSet<Vector2Int>[] buckets, Dictionary<Vector2Int, uint> possibleValue)

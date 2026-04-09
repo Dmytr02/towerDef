@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 7308797861737499226}
   - component: {fileID: 8937523521109114061}
   - component: {fileID: 149946645650231532}
+  - component: {fileID: 779992365871378985}
   m_Layer: 0
   m_Name: enemy 1
   m_TagString: Untagged
@@ -179,8 +180,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.8958235, y: 0.106000125, z: 0.95598364}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5471154521355055789}
   - {fileID: 213873335065590933}
@@ -247,8 +248,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38317a4713f0c204995cc7b25ed03568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
   enemyHPbar: {fileID: 7544975919578415409}
+--- !u!114 &779992365871378985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2886186766392560016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dd0b22c1474ec47b5118cb7dcaf82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  rotationSpeed: 10
+  waypointIndex: 0
+  enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
 --- !u!1 &4232200744538935785
 GameObject:
   m_ObjectHideFlags: 0

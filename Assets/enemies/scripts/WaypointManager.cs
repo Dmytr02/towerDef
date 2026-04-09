@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class WaypointManager : MonoBehaviour
 {
-    public List<Transform> waypoints = new List<Transform>();
 
     public bool isMoving;
     public float rotationSpeed;
@@ -17,7 +17,11 @@ public class WaypointManager : MonoBehaviour
     
     private void Start()
     {
+        transform.position = SceneGenerator.Path[0];
+        
         StartMoving();
+
+        
     }
 
     public void StartMoving()
@@ -28,24 +32,26 @@ public class WaypointManager : MonoBehaviour
 
     private void Update()
     {
+        transform.localScale = SceneGenerator.enemyScale;
         if (!isMoving)
         {
             return;
         }
 
-        if (waypointIndex < waypoints.Count)
+        if (waypointIndex < SceneGenerator.Path.Count)
         {
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[waypointIndex].position, Time.deltaTime * enemyData.moveSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, SceneGenerator.Path[waypointIndex], Time.deltaTime * enemyData.moveSpeed * transform.localScale.x);
         
-            var direction = transform.position - waypoints[waypointIndex].position;
+            var direction = transform.position - SceneGenerator.Path[waypointIndex];
             var targetRotation = Quaternion.LookRotation(-direction, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
                 
-            var distance = Vector3.Distance(transform.position, waypoints[waypointIndex].position);
-            if (distance <= 0.05f)
+            var distance = Vector3.Distance(transform.position, SceneGenerator.Path[waypointIndex]);
+            if (distance <= 0.0007f)
             {
                 waypointIndex++;
             }   
+            Debug.Log($"{distance}, {waypointIndex}");
         }
     }
 }
