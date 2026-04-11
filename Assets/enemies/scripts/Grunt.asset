@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d04609ad118ed04c8495cfbff1e76ca, type: 3}
-  m_Name: Enemy 1
+  m_Name: Grunt
   m_EditorClassIdentifier: 
-  enemyName: Enemy
+  enemyName: Grunt
   prefab: {fileID: 2886186766392560016, guid: 9a1fd254a90b8e74298e75f987167986, type: 3}
-  maxHealth: 100
+  maxHealth: 50
   moveSpeed: 0.1
-  damage: 10
+  damage: 5
   coinReward: 10
   giveLife: 0
   isBoss: 0

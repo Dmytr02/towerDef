@@ -68,6 +68,7 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyData data)
     {
+        int wave = Instance.currentWaveIndex;
         enemiesAlive++;
         
         EnemyManager.Instance.SpawnEnemy(data);
