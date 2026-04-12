@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Runner
   m_EditorClassIdentifier: 
   enemyName: Runner
-  prefab: {fileID: 0}
+  prefab: {fileID: 4844136295289369648, guid: b6fd1693f1fc60c49907d71240242e22, type: 3}
   maxHealth: 30
-  moveSpeed: 0.2
+  moveSpeed: 5
   damage: 3
   coinReward: 10
   giveLife: 0

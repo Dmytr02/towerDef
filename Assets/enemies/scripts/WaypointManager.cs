@@ -17,41 +17,56 @@ public class WaypointManager : MonoBehaviour
     
     private void Start()
     {
-        transform.position = SceneGenerator.Path[0];
-        
-        StartMoving();
+        if (enemyData != null)
+        {
+            StartMoving();
+        }
+    }
 
-        
+    public void Initialize(EnemyData data)
+    {
+        enemyData = data;
+        StartMoving();
     }
 
     public void StartMoving()
     {
-        waypointIndex = 0;
-        isMoving = true;
-    }
-
-    private void Update()
-    {
-        transform.localScale = SceneGenerator.enemyScale;
-        if (!isMoving)
+        if (SceneGenerator.Path == null || SceneGenerator.Path.Count == 0)
         {
             return;
         }
 
+        transform.position = SceneGenerator.Path[0];
+        waypointIndex = 0;
+        isMoving = true;
+    }
+    private void Update()
+    {
+        if (!isMoving || enemyData == null) return;
+
+        transform.localScale = SceneGenerator.enemyScale;
+
         if (waypointIndex < SceneGenerator.Path.Count)
         {
-            transform.position = Vector3.MoveTowards(transform.position, SceneGenerator.Path[waypointIndex], Time.deltaTime * enemyData.moveSpeed * transform.localScale.x);
-        
-            var direction = transform.position - SceneGenerator.Path[waypointIndex];
-            var targetRotation = Quaternion.LookRotation(-direction, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-                
-            var distance = Vector3.Distance(transform.position, SceneGenerator.Path[waypointIndex]);
-            if (distance <= 0.0007f)
+            Vector3 target = SceneGenerator.Path[waypointIndex];
+
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                target,
+                Time.deltaTime * enemyData.moveSpeed * transform.localScale.x
+            );
+
+            var direction = transform.position - target;
+            if (direction != Vector3.zero)
+            {
+                var targetRotation = Quaternion.LookRotation(-direction, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
+
+            if (Vector3.Distance(transform.position, target) <= 0.0007f)
             {
                 waypointIndex++;
-            }   
-            Debug.Log($"{distance}, {waypointIndex}");
+            }
         }
     }
 }

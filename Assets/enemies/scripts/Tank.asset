@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tank
   m_EditorClassIdentifier: 
   enemyName: Tank
-  prefab: {fileID: 0}
+  prefab: {fileID: 8013868719411732856, guid: bf0036c98e5af9040b597f2005b2c3d0, type: 3}
   maxHealth: 120
   moveSpeed: 0.05
   damage: 10
