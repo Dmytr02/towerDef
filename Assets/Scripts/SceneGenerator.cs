@@ -75,7 +75,7 @@ public class SceneGenerator : MonoBehaviour {
 		while (true) {
 			(Vector2Int pos, uint mask) current = PopCell(ref buckets, ref possibleValue);
 			if (current.pos == new Vector2Int(-1, -1)) break;
-			Debug.Log($"{current.pos}");
+			//Debug.Log($"{current.pos}");
 			(CellOfGrid cell, Quaternion rotation) currentIndex = GetRandom(current.mask);
 
 
