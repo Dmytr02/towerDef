@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -6,6 +7,8 @@ public class PlayerStats : MonoBehaviour
 
     public int coins;
     public int lives = 3;
+
+    [SerializeField] private TextMeshProUGUI lifeText;
 
     void Awake()
     {
@@ -20,5 +23,20 @@ public class PlayerStats : MonoBehaviour
     public void AddLives()
     {
         lives++;
+        UpdateUI();
+    }
+
+    public void RemoveLife()
+    {
+        lives--;
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (lifeText != null)
+        {
+            lifeText.text = $"lives {lives}";
+        }
     }
 }
