@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.XR.Interaction.Toolkit.Utilities;
 
+
+
 namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 {
     /// <summary>
@@ -220,15 +222,15 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 }
             }
 
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
             
             var objectIndex = isSpawnOptionRandomized ? Random.Range(0, m_ObjectPrefabs.Count) : m_SpawnOptionIndex;
-            var newObject = Instantiate(m_ObjectPrefabs[objectIndex]);
-            if (m_SpawnAsChildren)
-                newObject.transform.parent = transform;
+            GameObject newObject = SceneGenerator.m_transform?.parent.gameObject;
+            if (newObject == null)
+            {
+                newObject = Instantiate(m_ObjectPrefabs[objectIndex]);
+                if (m_SpawnAsChildren)
+                    newObject.transform.parent = transform;
+            }
 
             newObject.transform.position = spawnPoint;
             EnsureFacingCamera();
@@ -254,6 +256,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             objectSpawned?.Invoke(newObject);
             return true;
         }
+
 
         /// <summary>
         /// Attempts to spawn an object from <see cref="objectPrefabs"/> at the given position. The object will have a

@@ -1,26 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
 
-    [SerializeField] private Transform spawnPoint;
-
     private void Awake()
     {
         Instance = this;
     }
-    
+
     public void SpawnEnemy(EnemyData data)
     {
-        GameObject enemyObj = Instantiate(data.prefab, spawnPoint.position, Quaternion.identity);
+        if (SceneGenerator.Path == null || SceneGenerator.Path.Count == 0)
+        {
+            return;
+        }
+
+        Vector3 spawnPos = SceneGenerator.Path[0];
+        GameObject enemyObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
 
         EnemyHealth health = enemyObj.GetComponent<EnemyHealth>();
         if (health != null)
-        {
             health.Initialize(data);
-        }
+
+        WaypointManager waypoint = enemyObj.GetComponent<WaypointManager>();
+        if (waypoint != null)
+            waypoint.Initialize(data);
     }
 }
