@@ -11,8 +11,8 @@
         [SerializeField] private int xSize = 50;
         [SerializeField] private int zSize = 50;
         private int[,] _grid;
-        private static Vector2Int _gridSize;
-        private static Transform m_transform;
+        public static Vector2Int _gridSize;
+        public static Transform m_transform;
         
         [SerializeField, SerializeReference] private List<CellOfGrid> possibleCells = new();
         [SerializeField] private List<CellOfGrid> PathCells = new();
@@ -89,7 +89,7 @@
             {
                 (Vector2Int pos, uint mask) current = PopCell(ref buckets, ref possibleValue);
                 if(current.pos == new Vector2Int(-1, -1)) break;
-                Debug.Log($"{current.pos}");
+                //Debug.Log($"{current.pos}");
                 (CellOfGrid cell, Quaternion rotation) currentIndex = GetRandom(current.mask);
                 
               
@@ -121,7 +121,7 @@
         }
         private void SetCell(ref HashSet<Vector2Int>[] buckets, ref Dictionary<Vector2Int, uint> possibleValue, CellOfGrid cell, int x, int y, int rotation)
         {
-            Debug.Log($"rotation - {rotation}");
+            //Debug.Log($"rotation - {rotation}");
             rotation = (rotation + 2) % 4;
             uint num = (cell.sides << 8 * rotation) | (cell.sides >> 32 - 8 * rotation); 
             
@@ -193,7 +193,7 @@
 
             foreach (var possibleCell in possibleCells)
             {
-                Debug.Log(possibleCell.num + " | " + mask);
+                //Debug.Log(possibleCell.num + " | " + mask);
                 for (int i = 0; i < 4; i++)
                 {
                     uint moved = (mask >> 8*i) | (mask << 32-8*i);
