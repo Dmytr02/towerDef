@@ -4844,6 +4844,7 @@ MonoBehaviour:
   Size: {x: 2, y: 2}
   previewMesh: {fileID: 2471533014487537046, guid: 42624c03ace047c4b8d49af10ebf2d46, type: 3}
   previewMaterial: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
+  previewMaterialBlocked: {fileID: 2100000, guid: 5db3adf260dc3c24aaa5e8e5d16cefd4, type: 2}
   MultiTouch: {fileID: 1248778126}
   references:
     version: 2
