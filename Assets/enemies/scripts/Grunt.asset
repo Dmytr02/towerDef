@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Grunt
   prefab: {fileID: 2886186766392560016, guid: 9a1fd254a90b8e74298e75f987167986, type: 3}
   maxHealth: 50
-  moveSpeed: 0.1
+  moveSpeed: 5
   damage: 5
   coinReward: 10
   giveLife: 0

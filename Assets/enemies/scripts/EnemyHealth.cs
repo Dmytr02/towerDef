@@ -10,16 +10,21 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] private EnemyHPbar enemyHPbar;
 
+    [SerializeField] private WaypointManager waypointManager;
+
+    private bool isInitialized = false;
+
     private void Awake()
     {
-        if (enemyData != null)
+        if (enemyData != null && !isInitialized)
         {
-            Initialize(enemyData); // for testing
+            Initialize(enemyData);
         }
     }
 
     public void Initialize(EnemyData data)
     {
+        isInitialized = true;
         enemyData = data;
         currentHealth = data.maxHealth;
         
