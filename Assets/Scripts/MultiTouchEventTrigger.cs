@@ -65,7 +65,6 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
             Touch touch = Input.GetTouch(i);
             int fingerId = touch.fingerId;
             Vector2 touchPos = touch.position;
-            //bool isOver = RectTransformUtility.RectangleContainsScreenPoint(rectTransform, touchPos, null);
 
             switch (touch.phase)
             {
@@ -108,7 +107,6 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
                         if (Vector2.Distance(pressPositions[fingerId].Item1, touchPos) <= clickThreshold && Time.time-pressPositions[fingerId].Item2 < clickTimeThreshold)
                             OnClickEvent?.Invoke(ped);
                         
-                        // Освобождаем палец и объект
                         fingerToObject.Remove(fingerId);
 
                         activePointers.Remove(fingerId); 

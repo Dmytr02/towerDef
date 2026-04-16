@@ -230,7 +230,7 @@ namespace UnityEngine.XR.Templates.AR
         {
             m_CreateButton.onClick.AddListener(ShowMenu);
             m_CancelButton.onClick.AddListener(HideMenu);
-            m_DeleteButton.onClick.AddListener(DeleteFocusedObject);
+            m_DeleteButton?.onClick?.AddListener(DeleteFocusedObject);
             m_PlaneManager.trackablesChanged.AddListener(OnPlaneChanged);
         }
 
@@ -304,7 +304,7 @@ namespace UnityEngine.XR.Templates.AR
             {
                 m_IsPointerOverUI = false;
                 //m_CreateButton.gameObject.SetActive(true);
-                m_DeleteButton.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
+                m_DeleteButton?.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
             }
 
             if (!m_IsPointerOverUI && m_ShowOptionsModal)

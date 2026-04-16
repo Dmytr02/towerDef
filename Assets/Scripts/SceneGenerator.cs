@@ -38,7 +38,7 @@ public class SceneGenerator : MonoBehaviour {
 	}
 
 	private void Start() {
-		Vector2Int[] way = WayGenerator.GenerateWay(_grid, new Pair<int, int>(5, 5), new Pair<int, int>(46, 46), new List<Pair<int, int>>() { new Pair<int, int>(0, 1), new Pair<int, int>(1, 0), new Pair<int, int>(0, -1), new Pair<int, int>(-1, 0) }, 1).Select(n => new Vector2Int(n.First, n.Second)).ToArray();
+		Vector2Int[] way = WayGenerator.GenerateWay(_grid, new Vector2Int(5, 5), new Vector2Int(46, 46), new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
 		_Path = way.ToList();
 		HashSet<Vector2Int>[] buckets = new HashSet<Vector2Int>[33].Select(_ => new HashSet<Vector2Int>()).ToArray();
 		Dictionary<Vector2Int, uint> possibleValue = new Dictionary<Vector2Int, uint>();
@@ -90,7 +90,7 @@ public class SceneGenerator : MonoBehaviour {
 			Matrix4x4[] matrix = data.Value.Select(n => {
 				return transform.localToWorldMatrix * Matrix4x4.TRS(n.positions,
 					(n.quaternion.Equals(new Quaternion(0, 0, 0, 0))) ? Quaternion.identity : n.quaternion,
-					new Vector3(1 / (float)xSize, 0.02f, 1 / (float)zSize));
+					new Vector3(1 / (float)xSize, 20 / (float)xSize, 1 / (float)zSize));
 			}).ToArray();
 			Graphics.DrawMeshInstanced(data.Key.mesh, 0, data.Key.mat, matrix);
 		}
