@@ -3,27 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Pair<T, U>
-{
-    public Pair()
-    {
-    }
-
-    public Pair(T first, U second)
-    {
-        this.First = first;
-        this.Second = second;
-    }
-
-    public T First { get; set; }
-    public U Second { get; set; }
-};
 public class WayGenerator : MonoBehaviour
 {
-    public static List<Pair<int, int>> GenerateWay(int[,] map, Pair<int, int> start, Pair<int, int> target, List<Pair<int, int>> neighbors, int distanceCost = 1)
+    public static List<Vector2Int> GenerateWay(int[,] map, Vector2Int start, Vector2Int target, List<Vector2Int> neighbors, int distanceCost = 1)
     {
         int[,] weight = new int[map.GetLength(0), map.GetLength(1)];
-        Pair<int, int>[,] directions = new Pair<int, int>[map.GetLength(0), map.GetLength(1)];
+        Vector2Int[,] directions = new Vector2Int[map.GetLength(0), map.GetLength(1)];
         for (int x = 0; x < weight.GetLength(0); x++)
         {
             for (int y = 0; y < weight.GetLength(1); y++)
@@ -32,30 +17,30 @@ public class WayGenerator : MonoBehaviour
             }
         }
 
-        weight[start.First, start.Second] = map[start.First, start.Second];
-        List<Pair<int, int>> checkList = new List<Pair<int, int>>() { start };
+        weight[start.x, start.y] = map[start.x, start.y];
+        List<Vector2Int> checkList = new List<Vector2Int>() { start };
 
         while (checkList.Count > 0)
         {
-            Pair<int, int> check = checkList[0];
+            Vector2Int check = checkList[0];
             checkList.RemoveAt(0);
-            foreach (Pair<int, int> neighbor in neighbors)
+            foreach (Vector2Int neighbor in neighbors)
             {
-                if (check.First + neighbor.First < 0 || check.Second + neighbor.Second < 0 || check.First + neighbor.First > map.GetLength(0) - 1 || check.Second + neighbor.Second > map.GetLength(1) - 1)
+                if (check.x + neighbor.x < 0 || check.y + neighbor.y < 0 || check.x + neighbor.x > map.GetLength(0) - 1 || check.y + neighbor.y > map.GetLength(1) - 1)
                     continue;
-                if (weight[check.First + neighbor.First, check.Second + neighbor.Second] <= weight[check.First, check.Second] + map[check.First + neighbor.First, check.Second + neighbor.Second])
+                if (weight[check.x + neighbor.x, check.y + neighbor.y] <= weight[check.x, check.y] + map[check.x + neighbor.x, check.y + neighbor.y])
                     continue;
-                if (map[check.First + neighbor.First, check.Second + neighbor.Second] == -1)
+                if (map[check.x + neighbor.x, check.y + neighbor.y] == -1)
                     continue;
-                directions[check.First + neighbor.First, check.Second + neighbor.Second] = new Pair<int, int>(-neighbor.First, -neighbor.Second);
-                if (check.First + neighbor.First == target.First && check.Second + neighbor.Second == target.Second)
+                directions[check.x + neighbor.x, check.y + neighbor.y] = new Vector2Int(-neighbor.x, -neighbor.y);
+                if (check.x + neighbor.x == target.x && check.y + neighbor.y == target.y)
                 {
-                    List<Pair<int, int>> way = new List<Pair<int, int>>();
-                    Pair<int, int> pos = target;
-                    while (pos.First != start.First || pos.Second != start.Second)
+                    List<Vector2Int> way = new List<Vector2Int>();
+                    Vector2Int pos = target;
+                    while (pos.x != start.x || pos.y != start.y)
                     {
                         way.Add(pos);
-                        pos = new Pair<int, int>(directions[pos.First, pos.Second].First + pos.First, directions[pos.First, pos.Second].Second + pos.Second);
+                        pos = new Vector2Int(directions[pos.x, pos.y].x + pos.x, directions[pos.x, pos.y].y + pos.y);
                     }
                     way.Add(pos);
                     return way;
@@ -63,25 +48,25 @@ public class WayGenerator : MonoBehaviour
 
 
 
-                weight[check.First + neighbor.First, check.Second + neighbor.Second] = weight[check.First, check.Second] + map[check.First + neighbor.First, check.Second + neighbor.Second];
+                weight[check.x + neighbor.x, check.y + neighbor.y] = weight[check.x, check.y] + map[check.x + neighbor.x, check.y + neighbor.y];
 
                 int Count = checkList.Count;
                 for (int i = 0; i < Count + 1; i++)
                 {
                     if (i == Count)
                     {
-                        checkList.Add(new Pair<int, int>(check.First + neighbor.First, check.Second + neighbor.Second));
+                        checkList.Add(new Vector2Int(check.x + neighbor.x, check.y + neighbor.y));
                     }
-                    else if (weight[check.First + neighbor.First, check.Second + neighbor.Second] + (Mathf.Abs(target.First - check.First - neighbor.First) + Mathf.Abs(target.Second - check.Second - neighbor.Second)) * distanceCost < weight[checkList[i].First, checkList[i].Second] + (Mathf.Abs(target.First - checkList[i].First) + Mathf.Abs(target.Second - checkList[i].Second)) * distanceCost)
+                    else if (weight[check.x + neighbor.x, check.y + neighbor.y] + (Mathf.Abs(target.x - check.x - neighbor.x) + Mathf.Abs(target.y - check.y - neighbor.y)) * distanceCost < weight[checkList[i].x, checkList[i].y] + (Mathf.Abs(target.x - checkList[i].x) + Mathf.Abs(target.y - checkList[i].y)) * distanceCost)
                     {
                         checkList.Insert(i,
-                            new Pair<int, int>(check.First + neighbor.First, check.Second + neighbor.Second));
+                            new Vector2Int(check.x + neighbor.x, check.y + neighbor.y));
                         break;
                     }
                 }
             }
         }
 
-        return new List<Pair<int, int>>();
+        return new List<Vector2Int>();
     }
 }
