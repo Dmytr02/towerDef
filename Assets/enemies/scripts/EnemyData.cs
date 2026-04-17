@@ -10,7 +10,6 @@ public class EnemyData : ScriptableObject
     [Header("stats")]
     public float maxHealth = 100f;
     public float moveSpeed = 2f;
-    public float damage = 10;
 
     [Header("rewards")]
     public int coinReward = 10;

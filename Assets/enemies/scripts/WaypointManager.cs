@@ -13,7 +13,6 @@ public class WaypointManager : MonoBehaviour
     public int waypointIndex;
     
     [SerializeField] private EnemyData enemyData;
-
     
     private void Start()
     {
@@ -67,6 +66,14 @@ public class WaypointManager : MonoBehaviour
             {
                 waypointIndex++;
             }
+        }
+        else
+        {
+            PlayerStats.Instance.RemoveLife();
+            
+            WaveManager.Instance.OnEnemyDied();
+
+            Destroy(gameObject);
         }
     }
 }

@@ -15,5 +15,4 @@ public class WaveData : ScriptableObject
 
     public int enemyCount = 10;          
     public float spawnInterval = 1f;    
-    public float delayBeforeWave = 1f;
 }

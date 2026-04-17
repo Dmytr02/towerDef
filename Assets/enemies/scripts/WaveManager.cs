@@ -14,10 +14,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveInfoText;
 
     [SerializeField] private float healthScalePerWave = 0.15f;
-    [SerializeField] private float speedScalePerWave = 0.05f;
-    [SerializeField] private float damageScalePerWave = 0.10f;
 
     private int currentWaveIndex = 0;
+    private int totalWavesCount = 0;
     private bool waveInProgress = false;
     private int enemiesAlive = 0;
 
@@ -34,11 +33,6 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        if (waveInProgress || currentWaveIndex >= waves.Count)
-        {
-            return;
-        }
-
         startWaveButton.interactable = false;
         StartCoroutine((RunWave(waves[currentWaveIndex])));
     }
@@ -46,17 +40,23 @@ public class WaveManager : MonoBehaviour
     private IEnumerator RunWave(WaveData wave)
     {
         waveInProgress = true;
-        yield return new WaitForSeconds(wave.delayBeforeWave);
+
+        bool bossSpawned = false;
 
         for (int i = 0; i < wave.enemyCount; i++)
         {
-            EnemyData baseData = GetRandomEnemy(wave);
+            EnemyData baseData = GetRandomEnemy(wave, bossSpawned);
             if (baseData == null)
             {
                 continue;
             }
 
-            EnemyData scaledData = GetScaledEnemyData(baseData, currentWaveIndex);
+            if (baseData.isBoss)
+            {
+                bossSpawned = true;
+            }
+
+            EnemyData scaledData = GetScaledEnemyData(baseData, totalWavesCount);
 
             enemiesAlive++;
 
@@ -69,34 +69,50 @@ public class WaveManager : MonoBehaviour
 
         waveInProgress = false;
         currentWaveIndex++;
+        totalWavesCount++;
+
+        if (currentWaveIndex >= waves.Count)
+        {
+            currentWaveIndex = 0;
+        }
 
         UpdateUI();
 
-        if (currentWaveIndex < waves.Count)
+        startWaveButton.interactable = true;
+
+        if (PlayerStats.Instance.lives <= 0)
         {
-            startWaveButton.interactable = true;
+            startWaveButton.interactable = false;
+
+            Debug.Log("no lives left, game over");
         }
     }
 
-    private EnemyData GetRandomEnemy(WaveData wave)
+    private EnemyData GetRandomEnemy(WaveData wave, bool bossAlreadySpawned)
     {
         if (wave.enemyPool == null || wave.enemyPool.Count == 0) return null;
 
+        var pool = bossAlreadySpawned
+            ? wave.enemyPool.FindAll(e => !e.enemyData.isBoss)
+            : wave.enemyPool;
+
+        if (pool.Count == 0) return null;
+
         float totalWeight = 0f;
-        foreach (var entry in wave.enemyPool)
+        foreach (var entry in pool)
             totalWeight += entry.spawnWeight;
 
         float roll = UnityEngine.Random.Range(0f, totalWeight);
         float cumulative = 0f;
 
-        foreach (var entry in wave.enemyPool)
+        foreach (var entry in pool)
         {
             cumulative += entry.spawnWeight;
             if (roll <= cumulative)
                 return entry.enemyData;
         }
 
-        return wave.enemyPool[0].enemyData;
+        return pool[0].enemyData;
     }
 
     private EnemyData GetScaledEnemyData(EnemyData original, int waveIndex)
@@ -109,11 +125,8 @@ public class WaveManager : MonoBehaviour
         scaled.giveLife = original.giveLife;
         scaled.isBoss = original.isBoss;
 
-        float multiplier = 1f + waveIndex;
-
         scaled.maxHealth = original.maxHealth * (1f + healthScalePerWave * waveIndex);
-        scaled.moveSpeed = original.moveSpeed * (1f + speedScalePerWave * waveIndex);
-        scaled.damage = original.damage * (1f + damageScalePerWave * waveIndex);
+        scaled.moveSpeed = original.moveSpeed;
 
         return scaled;
     }
@@ -127,7 +140,7 @@ public class WaveManager : MonoBehaviour
     {
         if (currentWaveIndex < waves.Count)
         {
-            waveInfoText.text = $"wave {currentWaveIndex + 1} / {waves.Count}";
+            waveInfoText.text = $"wave {totalWavesCount + 1}";
         }
     }
 }
