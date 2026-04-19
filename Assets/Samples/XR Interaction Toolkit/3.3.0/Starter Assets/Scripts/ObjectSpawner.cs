@@ -12,6 +12,9 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
     public class ObjectSpawner : MonoBehaviour
     {
         [SerializeField]
+        BuildTowerManager  m_BuildTowerManager;
+        
+        [SerializeField]
         [Tooltip("The camera that objects will face when spawned. If not set, defaults to the main camera.")]
         Camera m_CameraToFace;
 
@@ -230,9 +233,15 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 newObject = Instantiate(m_ObjectPrefabs[objectIndex]);
                 if (m_SpawnAsChildren)
                     newObject.transform.parent = transform;
+                
+                newObject.transform.position = spawnPoint;
+            }
+            else
+            {
+                if(m_BuildTowerManager.SelectedTower != null) return false;
+                newObject.transform.position = spawnPoint;
             }
 
-            newObject.transform.position = spawnPoint;
             EnsureFacingCamera();
 
             var facePosition = m_CameraToFace.transform.position;

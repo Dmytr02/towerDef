@@ -38,7 +38,7 @@ public class SceneGenerator : MonoBehaviour {
 	}
 
 	private void Start() {
-		Vector2Int[] way = WayGenerator.GenerateWay(_grid, new Vector2Int(5, 5), new Vector2Int(46, 46), new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
+		Vector2Int[] way = WayGenerator.GenerateWay(_grid, new List<Vector2Int>{new(5, 5), new(5, 46), new(46, 5), new(46, 46)}, new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
 		_Path = way.ToList();
 		HashSet<Vector2Int>[] buckets = new HashSet<Vector2Int>[33].Select(_ => new HashSet<Vector2Int>()).ToArray();
 		Dictionary<Vector2Int, uint> possibleValue = new Dictionary<Vector2Int, uint>();
@@ -69,19 +69,22 @@ public class SceneGenerator : MonoBehaviour {
 			InstancesData[PathCells[mask]].Add((new Vector3((way[i].x + 0.5f) / (float)xSize - 0.5f, 1, (way[i].y + 0.5f) / (float)zSize - 0.5f), PathCells[mask].rotation));
 			SetCell(ref buckets, ref possibleValue, PathCells[mask], way[i].x, way[i].y, 0);
 			RemuveCell(ref buckets, ref possibleValue, way[i]);
+			
+			BuildTowerManager.possibleValues[way[i].x, way[i].y] = true;
 		}
 
 
 		while (true) {
 			(Vector2Int pos, uint mask) current = PopCell(ref buckets, ref possibleValue);
 			if (current.pos == new Vector2Int(-1, -1)) break;
-			//Debug.Log($"{current.pos}");
 			(CellOfGrid cell, Quaternion rotation) currentIndex = GetRandom(current.mask);
 
 
 			InstancesData.TryAdd(currentIndex.cell, new List<(Vector3, Quaternion)>());
 			InstancesData[currentIndex.cell].Add((new Vector3((current.pos.x + 0.5f) / (float)xSize - 0.5f, 1, (current.pos.y + 0.5f) / (float)zSize - 0.5f), currentIndex.rotation));
 			SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y, Mathf.RoundToInt((currentIndex.rotation.eulerAngles.y - currentIndex.cell.rotation.eulerAngles.y) / 90));
+			
+			BuildTowerManager.possibleValues[current.pos.x, current.pos.y] = currentIndex.cell.isHoldCell;
 		}
 	}
 
@@ -102,7 +105,6 @@ public class SceneGenerator : MonoBehaviour {
 		yield return null;
 	}
 	private void SetCell(ref HashSet<Vector2Int>[] buckets, ref Dictionary<Vector2Int, uint> possibleValue, CellOfGrid cell, int x, int y, int rotation) {
-		//Debug.Log($"rotation - {rotation}");
 		rotation = (rotation + 2) % 4;
 		uint num = (cell.sides << 8 * rotation) | (cell.sides >> 32 - 8 * rotation);
 

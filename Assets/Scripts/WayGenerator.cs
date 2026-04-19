@@ -39,10 +39,10 @@ public class WayGenerator : MonoBehaviour
                     Vector2Int pos = target;
                     while (pos.x != start.x || pos.y != start.y)
                     {
-                        way.Add(pos);
                         pos = new Vector2Int(directions[pos.x, pos.y].x + pos.x, directions[pos.x, pos.y].y + pos.y);
+                        way.Add(pos);
                     }
-                    way.Add(pos);
+                    //way.Add(pos);
                     return way;
                 }
 
@@ -59,8 +59,7 @@ public class WayGenerator : MonoBehaviour
                     }
                     else if (weight[check.x + neighbor.x, check.y + neighbor.y] + (Mathf.Abs(target.x - check.x - neighbor.x) + Mathf.Abs(target.y - check.y - neighbor.y)) * distanceCost < weight[checkList[i].x, checkList[i].y] + (Mathf.Abs(target.x - checkList[i].x) + Mathf.Abs(target.y - checkList[i].y)) * distanceCost)
                     {
-                        checkList.Insert(i,
-                            new Vector2Int(check.x + neighbor.x, check.y + neighbor.y));
+                        checkList.Insert(i, new Vector2Int(check.x + neighbor.x, check.y + neighbor.y));
                         break;
                     }
                 }
@@ -68,5 +67,22 @@ public class WayGenerator : MonoBehaviour
         }
 
         return new List<Vector2Int>();
+    }
+
+    public static List<Vector2Int> GenerateWay(int[,] map, List<Vector2Int> points, List<Vector2Int> neighbors, int distanceCost = 1)
+    {
+        if (points.Count < 2) return null;
+        List<Vector2Int> way = new List<Vector2Int>();
+        for (int x = 1; x < points.Count; x++)
+        {
+            var list = GenerateWay(map, points[x - 1], points[x], neighbors, distanceCost);
+            list.Reverse();
+            way.AddRange(list);
+            foreach (var i in way)
+            {
+                map[i.x, i.y] = -1;
+            }
+        }
+        return way;
     }
 }

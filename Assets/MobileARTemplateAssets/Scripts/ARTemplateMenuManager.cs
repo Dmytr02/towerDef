@@ -242,7 +242,7 @@ namespace UnityEngine.XR.Templates.AR
             m_ShowObjectMenu = false;
             m_CreateButton.onClick.RemoveListener(ShowMenu);
             m_CancelButton.onClick.RemoveListener(HideMenu);
-            m_DeleteButton.onClick.RemoveListener(DeleteFocusedObject);
+            m_DeleteButton?.onClick.RemoveListener(DeleteFocusedObject);
             m_PlaneManager.trackablesChanged.RemoveListener(OnPlaneChanged);
         }
 

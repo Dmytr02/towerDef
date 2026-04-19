@@ -10,9 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class BuildTowerManager : MonoBehaviour
 {
     public static BitArr2D possibleValues;
-    [SerializeReference] public Tower SelectedTower;
-    public GameObject Prefab;
-    public Vector2Int Size;
+    [SerializeReference] public TowerData SelectedTower;
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
@@ -34,7 +32,7 @@ public class BuildTowerManager : MonoBehaviour
     public void TryBuild(Vector2 position)
     {
         if (!CanBuild(position, out Vector2 towerPosition, true)) return;
-        GameObject tower = Instantiate(SelectedTower.Prefab, SceneGenerator.m_transform);
+        GameObject tower = Instantiate(SelectedTower.prefab, SceneGenerator.m_transform);
         tower.transform.localPosition = new Vector3(towerPosition.x-0.5f, 1, towerPosition.y-0.5f);
         tower.transform.localScale = new Vector3(1.0f /SceneGenerator._gridSize.x, 20.0f /SceneGenerator._gridSize.x, 1.0f /SceneGenerator._gridSize.x);
         tower.transform.localRotation = Quaternion.identity;
@@ -47,33 +45,36 @@ public class BuildTowerManager : MonoBehaviour
 
     public bool CanBuild(Vector2 position, out Vector2 towerPosition, bool isBuilding = false)
     {
+        bool result = true;
         towerPosition = position;
         List<Vector2Int> posList = new List<Vector2Int>();
-        for (int x = 0; x < SelectedTower.Size.x; x++)
+        for (int x = 0; x < SelectedTower.size.x; x++)
         {
-            for (int y = 0; y < SelectedTower.Size.y; y++)
+            for (int y = 0; y < SelectedTower.size.y; y++)
             {
-                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)SelectedTower.Size*-0.5f+new Vector2(x, y));
+                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)SelectedTower.size*-0.5f+new Vector2(x, y));
                 if (possibleValues[pos.x, pos.y])
                 {
                     Debug.Log(pos);
-                    return false;
+                    result = false;
                 }
                 posList.Add(pos);
             }
         }
-        towerPosition = ((Vector2)posList.Aggregate((i, vector2Int) => i + vector2Int)) /posList.Count/SceneGenerator._gridSize;
+        towerPosition = (((Vector2)posList.Aggregate((i, vector2Int) => i + vector2Int)) /posList.Count+new Vector2(0.5f, 0.5f))/SceneGenerator._gridSize;
         if(isBuilding) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
         
         Debug.Log("Completed");
-        return true;
+        return result;
     }
 
+    private void Awake()
+    {
+        possibleValues = new BitArr2D(50, 50);
+    }
 
     private void Start()
     {
-        SelectedTower = new Tower(){Prefab = Prefab, Size = Size};
-        possibleValues = new BitArr2D(50, 50);
         MultiTouch.OnPointerUpEvent.AddListener(CastToTryBuild);
         MultiTouch.OnDragEvent.AddListener(Drag);
         MultiTouch.OnPointerDownEvent.AddListener((arg0 =>
@@ -87,7 +88,7 @@ public class BuildTowerManager : MonoBehaviour
         Debug.Log("Building tower0");
         if(SceneGenerator.m_transform == null || SelectedTower == null) return;
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
-        Plane plane = new Plane(SceneGenerator.m_transform.up, SceneGenerator.m_transform.position+new Vector3(0, SceneGenerator.m_transform.lossyScale.y*1.5f,0));
+        Plane plane = new Plane(SceneGenerator.m_transform.up, SceneGenerator.m_transform.position+new Vector3(0, SceneGenerator.m_transform.lossyScale.y,0));
         if (plane.Raycast(ray, out float enter))
         {
             if (CanBuild(SceneGenerator.m_transform.InverseTransformPoint(ray.GetPoint(enter)), out Vector2 position))
@@ -96,7 +97,7 @@ public class BuildTowerManager : MonoBehaviour
                 {
                     Matrix4x4.TRS(
                         SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
-                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.Size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.Size.y))
+                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
                 });
             }
             else
@@ -105,7 +106,7 @@ public class BuildTowerManager : MonoBehaviour
                 {
                     Matrix4x4.TRS(
                         SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
-                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.Size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.Size.y))
+                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
                 });
             }
         }
@@ -203,11 +204,4 @@ public class BitArr2D
         sb.Append("</mspace>");
         return sb.ToString();
     }
-}
-
-[Serializable]
-public class Tower
-{
-    public GameObject Prefab;
-    public Vector2Int Size;
 }

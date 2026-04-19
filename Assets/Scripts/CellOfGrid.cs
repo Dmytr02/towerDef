@@ -6,9 +6,9 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "CellOfGrid", menuName = "ScriptableObjects/CellOfGrid")]
 public class CellOfGrid : ScriptableObject
 {
-    public GameObject cellPrefab;
     public Material mat;
     public Mesh mesh;
+    public bool isHoldCell;
 
     public Quaternion rotation; 
     [UintBytesAttribute(Name1 = "right", Name2 = "Up", Name3 = "Left", Name4 = "Down")]
