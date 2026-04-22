@@ -2,18 +2,15 @@ using UnityEngine;
 
 public class IceTower : BaseTower {
 	protected override void Shoot() {
-		Collider[] colliders = Physics.OverlapSphere(target.position, data.aoeRadius);
+		Collider[] colliders = Physics.OverlapSphere(target.position, data.aoeRadius, enemyLayerMask);
 		foreach (Collider collider in colliders) {
-			if (collider.CompareTag("Enemy")) {
-				EnemyHealth eh = collider.GetComponent<EnemyHealth>();
-				if (eh != null) {
-					eh.TakeDamage(data.damage);
-					/*EnemyMovement movement = collider.GetComponent<EnemyMovement>();
-					if (movement != null) {
-						movement.ApplySlow(data.slowAmount, data.slowDuration);
-					}*/
-				}
+			if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth health)) {
+				health.TakeDamage(data.damage);
+			}
+			if (collider.TryGetComponent<WaypointManager>(out WaypointManager move)) {
+				move.ApplySlow(data.slowAmount, data.slowDuration);
 			}
 		}
+		Debug.Log("Ice Blast at " + target.position);
 	}
 }

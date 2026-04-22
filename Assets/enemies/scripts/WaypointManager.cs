@@ -11,7 +11,7 @@ public class WaypointManager : MonoBehaviour
     public float rotationSpeed;
 
     public int waypointIndex;
-    
+    public float speedMultiplier = 1f;
     [SerializeField] private EnemyData enemyData;
     
     private void Start()
@@ -26,6 +26,17 @@ public class WaypointManager : MonoBehaviour
     {
         enemyData = data;
         StartMoving();
+    }
+
+    public void ApplySlow(float factor, float duration) {
+        StopCoroutine("SlowCoroutine");
+        StartCoroutine(SlowCoroutine(factor, duration));
+    }
+
+    private IEnumerator SlowCoroutine(float factor, float duration) {
+        speedMultiplier = 1f - factor;
+        yield return new WaitForSeconds(duration);
+        speedMultiplier = 1f;
     }
 
     public void StartMoving()
