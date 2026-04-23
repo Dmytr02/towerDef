@@ -29,6 +29,11 @@ public class WaveManager : MonoBehaviour
     {
         UpdateUI();
         startWaveButton.onClick.AddListener(StartNextWave);
+        startWaveButton.interactable = false;
+        SceneGenerator.OnSpawnScene += () =>
+        {
+            startWaveButton.interactable = true;
+        };
     }
 
     public void StartNextWave()

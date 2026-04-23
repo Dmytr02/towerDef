@@ -96,8 +96,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4625420807350465698}
+  - component: {fileID: 454497886212209961}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: TowerBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +120,19 @@ Transform:
   - {fileID: 1721197690738687060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454497886212209961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216933494665135642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e14b2b8c9999847bdc896f58d8ae8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: a2734bbca8c132041a1f6080eea0bbb8, type: 2}
 --- !u!1001 &2096362921970704976
 PrefabInstance:
   m_ObjectHideFlags: 0

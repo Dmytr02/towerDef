@@ -4,15 +4,29 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
+    [SerializeField] private int startCoins = 5;
+    
+    private int _coins;
 
-    public int coins;
+    public int coins
+    {
+        get { return _coins; }
+        set
+        {
+            _coins = value; 
+            coinsText.text =$"coins {_coins.ToString()}";
+        }
+    }
     public int lives = 3;
 
     [SerializeField] private TextMeshProUGUI lifeText;
+    [SerializeField] private TextMeshProUGUI coinsText;
 
     void Awake()
     {
         Instance = this;
+        coins = startCoins;
+        UpdateUI();
     }
 
     public void AddCoins(int amount)

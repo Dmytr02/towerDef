@@ -295,7 +295,7 @@ namespace UnityEngine.XR.Templates.AR
                 }
                 else
                 {
-                    m_DeleteButton.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
+                    m_DeleteButton?.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
                 }
 
                 m_IsPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1);

@@ -152,8 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43209fdab1521a642be2d4bf6634be77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 50
-  zSize: 50
+  xSize: 55
+  zSize: 55
+  points:
+  - {x: 0.12, y: 0.12}
+  - {x: 0.85, y: 0.15}
+  - {x: 0.85, y: 0.3}
+  - {x: 0.15, y: 0.7}
+  - {x: 0.15, y: 0.85}
+  - {x: 0.88, y: 0.88}
   possibleCells:
   - {fileID: 11400000, guid: a93bc3d3cb4ad6d4cae33715ef11d14c, type: 2}
   - {fileID: 11400000, guid: 699773d232b80834e9ec2594aa93c387, type: 2}

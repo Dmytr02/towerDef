@@ -14,6 +14,7 @@ public class BuildTowerManager : MonoBehaviour
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
+    public Material previewMaterialNoCoins;
     public MultiTouchEventTrigger MultiTouch;
 
     public void CastToTryBuild(PointerEventData touch)
@@ -31,21 +32,28 @@ public class BuildTowerManager : MonoBehaviour
     public void TryBuild(Vector3 position) => TryBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize);
     public void TryBuild(Vector2 position)
     {
-        if (!CanBuild(position, out Vector2 towerPosition, true)) return;
+        if (!CanBuild(position, out Vector2 towerPosition, out Material mat, true)) return;
         GameObject tower = Instantiate(SelectedTower.prefab, SceneGenerator.m_transform);
         tower.transform.localPosition = new Vector3(towerPosition.x-0.5f, 1, towerPosition.y-0.5f);
         tower.transform.localScale = new Vector3(1.0f /SceneGenerator._gridSize.x, 20.0f /SceneGenerator._gridSize.x, 1.0f /SceneGenerator._gridSize.x);
         tower.transform.localRotation = Quaternion.identity;
+        PlayerStats.Instance.coins -= SelectedTower.cost;
     }
 
-    public bool CanBuild(Vector3 position, out Vector2 towerPosition, bool isBuilding = false)
+    public bool CanBuild(Vector3 position, out Vector2 towerPosition, out Material material, bool isBuilding = false)
     {
-        return CanBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize, out towerPosition, isBuilding);
+        return CanBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize, out towerPosition, out material, isBuilding);
     }
 
-    public bool CanBuild(Vector2 position, out Vector2 towerPosition, bool isBuilding = false)
+    public bool CanBuild(Vector2 position, out Vector2 towerPosition, out Material material, bool isBuilding = false)
     {
+        material = previewMaterial;
         bool result = true;
+        if (SelectedTower.cost > PlayerStats.Instance.coins)
+        {
+            result = false;
+            material = previewMaterialNoCoins;
+        }
         towerPosition = position;
         List<Vector2Int> posList = new List<Vector2Int>();
         for (int x = 0; x < SelectedTower.size.x; x++)
@@ -57,6 +65,7 @@ public class BuildTowerManager : MonoBehaviour
                 {
                     Debug.Log(pos);
                     result = false;
+                    material = previewMaterialBlocked;
                 }
                 posList.Add(pos);
             }
@@ -85,30 +94,18 @@ public class BuildTowerManager : MonoBehaviour
 
     private void Drag(PointerEventData touch)
     {
-        Debug.Log("Building tower0");
         if(SceneGenerator.m_transform == null || SelectedTower == null) return;
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         Plane plane = new Plane(SceneGenerator.m_transform.up, SceneGenerator.m_transform.position+new Vector3(0, SceneGenerator.m_transform.lossyScale.y,0));
         if (plane.Raycast(ray, out float enter))
         {
-            if (CanBuild(SceneGenerator.m_transform.InverseTransformPoint(ray.GetPoint(enter)), out Vector2 position))
+            CanBuild(SceneGenerator.m_transform.InverseTransformPoint(ray.GetPoint(enter)), out Vector2 position, out Material mat);
+            Graphics.DrawMeshInstanced(previewMesh, 0, mat, new[]
             {
-                Graphics.DrawMeshInstanced(previewMesh, 0, previewMaterial, new[]
-                {
-                    Matrix4x4.TRS(
-                        SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
-                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
-                });
-            }
-            else
-            {
-                Graphics.DrawMeshInstanced(previewMesh, 0, previewMaterialBlocked, new[]
-                {
-                    Matrix4x4.TRS(
-                        SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
-                        new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
-                });
-            }
+                Matrix4x4.TRS(
+                    SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
+                    new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
+            });
         }
 
     }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2702767793068181431}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4270743226834325378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1234444669314007758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6523412655507944322}
   - component: {fileID: 6714000737675307381}
   - component: {fileID: 6499479004522429407}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 791239704198772273}
   - component: {fileID: 5665049194969966765}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_ghost_ANIMATOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 433728197249556387}
   - component: {fileID: 1131375865486516466}
   - component: {fileID: 6388463430644851029}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 618928828071446276}
   - component: {fileID: 8250155297614930165}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 614009420347096749}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: JNTs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 5423090855980256327}
   - component: {fileID: 8556130538656343628}
   - component: {fileID: 6801833626137048410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Runner
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -543,6 +543,7 @@ MonoBehaviour:
   isMoving: 0
   rotationSpeed: 10
   waypointIndex: 0
+  speedMultiplier: 1
   enemyData: {fileID: 11400000, guid: cb9e1980f26f0f44e9c1274b8beea145, type: 2}
 --- !u!1 &5360771357334997362
 GameObject:
@@ -553,7 +554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 180714283941603554}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +590,7 @@ GameObject:
   - component: {fileID: 2074962748887207823}
   - component: {fileID: 4335484094772887984}
   - component: {fileID: 1674426908274482297}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HPcanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3912902986237913115}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

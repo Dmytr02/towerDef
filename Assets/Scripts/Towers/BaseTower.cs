@@ -12,7 +12,7 @@ public abstract class BaseTower : MonoBehaviour {
 
 		if (fireCountdown <= 0f) {
 			Shoot();
-			fireCountdown = 1f / data.attackSpeed;
+			fireCountdown = data.attackSpeed;
 		}
 
 		fireCountdown -= Time.deltaTime;
@@ -43,6 +43,6 @@ public abstract class BaseTower : MonoBehaviour {
 	private void OnDrawGizmosSelected() {
 		if (data == null) return;
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, data.range);
+		Gizmos.DrawWireSphere(transform.position+Vector3.up*0.05f, data.range);
 	}
 }

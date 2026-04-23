@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,12 +6,23 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 public class SceneGenerator : MonoBehaviour {
 
-	[SerializeField] private int xSize = 50;
-	[SerializeField] private int zSize = 50;
+	[SerializeField] private int xSize = 55;
+	[SerializeField] private int zSize = 55;
 	private int[,] _grid;
 	public static Vector2Int _gridSize;
 	public static Transform m_transform;
-
+	public static Action OnSpawnScene;
+	
+	[SerializeField] Vector2[] points = new Vector2[6]
+	{
+		new(0.15f, 0.15f),
+		new(0.85f, 0.15f),
+		new(0.85f, 0.3f),
+		new(0.15f, 0.7f),
+		new(0.15f, 0.85f),
+		new(0.85f, 0.85f)
+	};
+	
 	[SerializeField, SerializeReference] private List<CellOfGrid> possibleCells = new();
 	[SerializeField] private List<CellOfGrid> PathCells = new();
 
@@ -26,19 +38,13 @@ public class SceneGenerator : MonoBehaviour {
 		_grid = new int[xSize, zSize];
 		for (int x = 0; x < _grid.GetLength(0); x++) {
 			for (int z = 0; z < _grid.GetLength(1); z++) {
-				_grid[x, z] = Random.Range(1, 10);
+				_grid[x, z] = Random.Range(1, 3);
 			}
 		}
-		for (int x = -4; x < 4; x++) {
-			for (int z = -4; z < 4; z++) {
-				_grid[_grid.GetLength(0) / 2 + x, _grid.GetLength(1) / 2 + z] = -1;
-			}
-		}
-		_grid[0, 0] = -1;
 	}
 
 	private void Start() {
-		Vector2Int[] way = WayGenerator.GenerateWay(_grid, new List<Vector2Int>{new(5, 5), new(5, 46), new(46, 5), new(46, 46)}, new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
+		Vector2Int[] way = WayGenerator.GenerateWay(_grid, points.Select(n => Vector2Int.CeilToInt(new Vector2(n.x*xSize, n.y*zSize))).ToList(), new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
 		_Path = way.ToList();
 		HashSet<Vector2Int>[] buckets = new HashSet<Vector2Int>[33].Select(_ => new HashSet<Vector2Int>()).ToArray();
 		Dictionary<Vector2Int, uint> possibleValue = new Dictionary<Vector2Int, uint>();
@@ -70,7 +76,8 @@ public class SceneGenerator : MonoBehaviour {
 			SetCell(ref buckets, ref possibleValue, PathCells[mask], way[i].x, way[i].y, 0);
 			RemuveCell(ref buckets, ref possibleValue, way[i]);
 			
-			BuildTowerManager.possibleValues[way[i].x, way[i].y] = true;
+			if(BuildTowerManager.possibleValues != null) BuildTowerManager.possibleValues[way[i].x, way[i].y] = true;
+			OnSpawnScene.Invoke();
 		}
 
 
@@ -84,7 +91,7 @@ public class SceneGenerator : MonoBehaviour {
 			InstancesData[currentIndex.cell].Add((new Vector3((current.pos.x + 0.5f) / (float)xSize - 0.5f, 1, (current.pos.y + 0.5f) / (float)zSize - 0.5f), currentIndex.rotation));
 			SetCell(ref buckets, ref possibleValue, currentIndex.cell, current.pos.x, current.pos.y, Mathf.RoundToInt((currentIndex.rotation.eulerAngles.y - currentIndex.cell.rotation.eulerAngles.y) / 90));
 			
-			BuildTowerManager.possibleValues[current.pos.x, current.pos.y] = currentIndex.cell.isHoldCell;
+			if(BuildTowerManager.possibleValues != null) BuildTowerManager.possibleValues[current.pos.x, current.pos.y] = currentIndex.cell.isHoldCell;
 		}
 	}
 
@@ -98,7 +105,7 @@ public class SceneGenerator : MonoBehaviour {
 			Graphics.DrawMeshInstanced(data.Key.mesh, 0, data.Key.mat, matrix);
 		}
 
-		enemyScale = transform.lossyScale * 0.01f;
+		enemyScale = new Vector3(transform.lossyScale.x/xSize, transform.lossyScale.x/xSize, transform.lossyScale.x/xSize);
 	}
 
 	IEnumerator Corutine(HashSet<Vector2Int>[] buckets, Dictionary<Vector2Int, uint> possibleValue) {

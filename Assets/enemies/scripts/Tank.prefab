@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4957343720392721000}
   - component: {fileID: 8478669568754889334}
   - component: {fileID: 2398903282011196752}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9010635335845237655}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297439923880412305}
   - component: {fileID: 991832646385695446}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5449880042645349847}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Haxo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 3054482720784089020}
   - component: {fileID: 366708748508854175}
   - component: {fileID: 5021354574467228407}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 7333123473496420565}
   - component: {fileID: 6405427531397440425}
   - component: {fileID: 4978286120585375542}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2438920994264345353}
   - component: {fileID: 1240818921884115408}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_ghost_ANIMATOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 2030049594570744853}
   - component: {fileID: 2531762677559518714}
   - component: {fileID: 3939890138831169528}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HPcanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 291670040526725740}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210187771611177589}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: JNTs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7345848513490878668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 6504045023714069833}
   - component: {fileID: 1702561356711802368}
   - component: {fileID: 5300628960130753545}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Angel_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8909375551872362628}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 8162006439031956798}
   - component: {fileID: 2409650800465656165}
   - component: {fileID: 94415148012941713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Axe_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 2665478141028756617}
   - component: {fileID: 5002358486163453453}
   - component: {fileID: 6281166580610167793}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -983,6 +983,7 @@ MonoBehaviour:
   isMoving: 0
   rotationSpeed: 10
   waypointIndex: 0
+  speedMultiplier: 1
   enemyData: {fileID: 11400000, guid: 5e4fc555d74285d4f9fbde5aa9f6ec72, type: 2}
 --- !u!1 &8498353487946664262
 GameObject:
@@ -993,7 +994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4652716595784693577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

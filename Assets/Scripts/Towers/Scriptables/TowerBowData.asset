@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 347267d44e4fcfb46ba2b56b23cdf9dc, type: 3}
-  m_Name: TowerData1
+  m_Name: TowerBowData
   m_EditorClassIdentifier: 
   towerName: 1
   prefab: {fileID: 8216933494665135642, guid: 631e634450b2374438258b787729b53f, type: 3}
-  cost: 5
-  size: {x: 1, y: 1}
-  damage: 1
-  attackSpeed: 1
-  range: 10
-  aoeRadius: 10
+  cost: 0
+  size: {x: 2, y: 2}
+  damage: 2
+  attackSpeed: 0.5
+  range: 0.1
+  aoeRadius: 0.1
   slowAmount: 0.4
   slowDuration: 2.5

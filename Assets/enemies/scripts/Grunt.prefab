@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7523304066494881070}
   - component: {fileID: 6742850723239981898}
   - component: {fileID: 6727402960999054193}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Angel_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1853792973055160224}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: JNTs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5261885133034757840}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 149946645650231532}
   - component: {fileID: 779992365871378985}
   - component: {fileID: 8481805181732815779}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grunt
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -244,6 +244,7 @@ MonoBehaviour:
   isMoving: 0
   rotationSpeed: 10
   waypointIndex: 0
+  speedMultiplier: 1
   enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
 --- !u!65 &8481805181732815779
 BoxCollider:
@@ -276,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5471154521355055789}
   - component: {fileID: 6385484053302572361}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_ghost_ANIMATOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3429793987598515204}
   - component: {fileID: 358916424474570028}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Little_Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +427,7 @@ GameObject:
   - component: {fileID: 8941830576218441138}
   - component: {fileID: 1454720517091935313}
   - component: {fileID: 1654306285613729332}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +505,7 @@ GameObject:
   - component: {fileID: 467756402899697206}
   - component: {fileID: 2457385432700107875}
   - component: {fileID: 7544975919578415409}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HPcanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5079895200928002757}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +651,7 @@ GameObject:
   - component: {fileID: 6692796577665935561}
   - component: {fileID: 4808280470506741490}
   - component: {fileID: 110745537776692898}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5280252839006272076}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5150987330218420494}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2552808187979535487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
