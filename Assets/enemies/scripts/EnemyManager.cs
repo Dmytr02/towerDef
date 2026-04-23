@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         Vector3 spawnPos = SceneGenerator.Path[0];
-        GameObject enemyObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
+        GameObject enemyObj = Instantiate(data.prefab, spawnPos, Quaternion.identity, SceneGenerator.m_transform);
 
         EnemyHealth health = enemyObj.GetComponent<EnemyHealth>();
         if (health != null)

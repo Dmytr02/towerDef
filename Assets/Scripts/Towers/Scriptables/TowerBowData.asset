@@ -19,6 +19,6 @@ MonoBehaviour:
   damage: 2
   attackSpeed: 0.5
   range: 0.1
-  aoeRadius: 0.1
+  aoeRadius: 0
   slowAmount: 0.4
   slowDuration: 2.5

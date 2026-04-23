@@ -14,6 +14,7 @@ public class WaypointManager : MonoBehaviour
     public float speedMultiplier = 1f;
     [SerializeField] private EnemyData enemyData;
     
+    private Coroutine moveCoroutine;
     private void Start()
     {
         if (enemyData != null)
@@ -29,8 +30,8 @@ public class WaypointManager : MonoBehaviour
     }
 
     public void ApplySlow(float factor, float duration) {
-        StopCoroutine("SlowCoroutine");
-        StartCoroutine(SlowCoroutine(factor, duration));
+        if(moveCoroutine != null) StopCoroutine(moveCoroutine);
+        moveCoroutine=StartCoroutine(SlowCoroutine(factor, duration));
     }
 
     private IEnumerator SlowCoroutine(float factor, float duration) {
@@ -63,7 +64,7 @@ public class WaypointManager : MonoBehaviour
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 target,
-                Time.deltaTime * enemyData.moveSpeed * transform.localScale.x
+                Time.deltaTime * enemyData.moveSpeed * transform.localScale.x * speedMultiplier
             );
 
             var direction = transform.position - target;
