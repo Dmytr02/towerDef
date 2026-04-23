@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 6801833626137048410}
   m_Layer: 0
   m_Name: Runner
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -527,6 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: cb9e1980f26f0f44e9c1274b8beea145, type: 2}
   enemyHPbar: {fileID: 1674426908274482297}
+  waypointManager: {fileID: 0}
 --- !u!114 &6801833626137048410
 MonoBehaviour:
   m_ObjectHideFlags: 0

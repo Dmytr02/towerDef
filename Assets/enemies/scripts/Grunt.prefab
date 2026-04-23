@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8481805181732815779}
   m_Layer: 0
   m_Name: Grunt
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
   enemyHPbar: {fileID: 7544975919578415409}
+  waypointManager: {fileID: 0}
 --- !u!114 &779992365871378985
 MonoBehaviour:
   m_ObjectHideFlags: 0

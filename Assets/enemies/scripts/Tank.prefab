@@ -883,7 +883,7 @@ GameObject:
   - component: {fileID: 6281166580610167793}
   m_Layer: 0
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -967,6 +967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 5e4fc555d74285d4f9fbde5aa9f6ec72, type: 2}
   enemyHPbar: {fileID: 3939890138831169528}
+  waypointManager: {fileID: 0}
 --- !u!114 &6281166580610167793
 MonoBehaviour:
   m_ObjectHideFlags: 0
