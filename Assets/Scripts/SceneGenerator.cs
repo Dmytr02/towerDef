@@ -105,7 +105,7 @@ public class SceneGenerator : MonoBehaviour {
 			Graphics.DrawMeshInstanced(data.Key.mesh, 0, data.Key.mat, matrix);
 		}
 
-		enemyScale = new Vector3(transform.lossyScale.x/xSize, transform.lossyScale.x/xSize, transform.lossyScale.x/xSize);
+		enemyScale = new Vector3(1f/xSize, 20f/xSize, 1f/xSize);
 	}
 
 	IEnumerator Corutine(HashSet<Vector2Int>[] buckets, Dictionary<Vector2Int, uint> possibleValue) {

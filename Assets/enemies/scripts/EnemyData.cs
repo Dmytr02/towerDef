@@ -1,10 +1,14 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "Tower Defense/EnemyData")]
 public class EnemyData : ScriptableObject
 {
     [Header("basic information")]
-    public string enemyName = "Enemy";
+    public string enemyName {
+        get => name;
+        set => name = value;
+    }
     public GameObject prefab;
 
     [Header("stats")]
