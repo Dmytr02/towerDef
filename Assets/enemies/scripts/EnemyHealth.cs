@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private EnemyHPbar enemyHPbar;
 
     [SerializeField] private WaypointManager waypointManager;
-
+    public Action OnDeath;
     private bool isInitialized = false;
 
     private void Awake()
@@ -75,7 +75,7 @@ public class EnemyHealth : MonoBehaviour
         {
             WaveManager.Instance.OnEnemyDied();
         }
-
+        OnDeath.Invoke();
         Destroy(gameObject);
     }
 }

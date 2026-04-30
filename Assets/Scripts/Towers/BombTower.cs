@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BombTower : BaseTower {
 	protected override void Shoot() {
+		UpdateTarget();
+		if (target == null) return;
 		Collider[] colliders = Physics.OverlapSphere(target.position, data.aoeRadius);
 		foreach (Collider collider in colliders) {
 			if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth enemy))

@@ -17,8 +17,8 @@ MonoBehaviour:
   cost: 0
   size: {x: 2, y: 2}
   damage: 0
-  attackSpeed: 0.1
+  attackSpeed: 0.01
   range: 0.15
   aoeRadius: 0
-  slowAmount: 0.99
-  slowDuration: 2.5
+  slowAmount: 0.5
+  slowDuration: 0.05

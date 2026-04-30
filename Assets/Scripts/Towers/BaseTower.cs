@@ -6,12 +6,9 @@ public abstract class BaseTower : MonoBehaviour {
 	protected Transform target;
 
 	protected virtual void Update() {
-		UpdateTarget();
-
-		if (target == null) return;
-
 		if (fireCountdown <= 0f) {
 			Shoot();
+			Debug.Log("update");
 			fireCountdown = data.attackSpeed;
 		}
 
@@ -19,7 +16,7 @@ public abstract class BaseTower : MonoBehaviour {
 	}
 
 	protected virtual void UpdateTarget() {
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] enemies = EnemyManager.Instance.enemies.ToArray();
 		float shortestDistance = Mathf.Infinity;
 		GameObject nearestEnemy = null;
 
@@ -31,7 +28,7 @@ public abstract class BaseTower : MonoBehaviour {
 			}
 		}
 
-		if (nearestEnemy != null && shortestDistance <= data.range) {
+		if (shortestDistance <= data.range) {
 			target = nearestEnemy.transform;
 		} else {
 			target = null;
