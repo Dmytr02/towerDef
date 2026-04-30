@@ -1168,7 +1168,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1765209028}
         m_TargetAssemblyTypeName: UIManager, Unity.XR.Interaction.Toolkit.Samples.StarterAssets
-        m_MethodName: UnPouse
+        m_MethodName: UnPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6224,7 +6224,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1765209028}
         m_TargetAssemblyTypeName: UIManager, Unity.XR.Interaction.Toolkit.Samples.StarterAssets
-        m_MethodName: Pouse
+        m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8255,6 +8255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612a0af6c04628849a1b40be75f294cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 604336190}
 --- !u!4 &1765209029
 Transform:
   m_ObjectHideFlags: 0
