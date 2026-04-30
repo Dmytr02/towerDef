@@ -64,7 +64,7 @@ public class WaypointManager : MonoBehaviour
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 target,
-                Time.deltaTime * enemyData.moveSpeed * transform.localScale.x * speedMultiplier
+                Time.deltaTime * enemyData.moveSpeed * transform.lossyScale.x * speedMultiplier
             );
 
             var direction = transform.position - target;
