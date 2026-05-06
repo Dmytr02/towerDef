@@ -553,6 +553,8 @@ MonoBehaviour:
   lives: 3
   lifeText: {fileID: 1948786913}
   coinsText: {fileID: 1338378988}
+  clickDamage: 5
+  clickCooldown: 0.7
 --- !u!224 &143089544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2845,6 +2847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83a180b54a69324bb0e22f422e3da4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: []
 --- !u!4 &650577632
 Transform:
   m_ObjectHideFlags: 0
