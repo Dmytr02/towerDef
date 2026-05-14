@@ -8,9 +8,22 @@ public class TowerManagerSingletone : MonoBehaviour
 {
     public static TowerManagerSingletone Instance;
     [SerializeField] private MultiTouchEventTrigger eventTrigger;
-    public BaseTower selectedTower;
+    private BaseTower _selectedTower;
+
+    public BaseTower selectedTower
+    {
+        get => _selectedTower;
+        set
+        {
+            _selectedTower = value;
+            if(value != null)  visualPanel.SetActive(true);
+            else   visualPanel.SetActive(false);
+        }
+    }
     public Mesh visualizeMesh;
     public Material visualizeMaterial;
+
+    public GameObject visualPanel;
     
     void Awake()
     {
@@ -19,7 +32,7 @@ public class TowerManagerSingletone : MonoBehaviour
             Destroy(this);
             return;
         }
-
+        visualPanel.SetActive(false);
         Instance = this;
     }
 
@@ -47,9 +60,9 @@ public class TowerManagerSingletone : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         if (Physics.Raycast(ray, out RaycastHit hit, int.MaxValue, LayerMask.GetMask("Tower")))
         {
-            
             if (hit.transform.TryGetComponent(out BaseTower tower))
             {
+                
                 SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = false;
                 selectedTower = tower;
                 return;
@@ -69,5 +82,15 @@ public class TowerManagerSingletone : MonoBehaviour
             selectedTower.data = selectedTower.data.nextLvl;
             PlayerStats.Instance.coins -= selectedTower.data.nextLvl.cost;
         }
+    }
+
+    public void RemoveSelectedTower()
+    {
+        if (!selectedTower) return;
+        
+        PlayerStats.Instance.coins += selectedTower.data.recoverCost;
+        Destroy(selectedTower.gameObject);
+        selectedTower = null;
+        SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = true;
     }
 }

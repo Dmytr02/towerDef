@@ -5,6 +5,7 @@ public class TowerData : ScriptableObject {
 	public string towerName;
 	public GameObject prefab;
 	public int cost;
+	public int recoverCost;
 	public Vector2Int size;
 	public TowerData nextLvl;
 
