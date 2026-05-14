@@ -6,6 +6,7 @@ public class TowerData : ScriptableObject {
 	public GameObject prefab;
 	public int cost;
 	public Vector2Int size;
+	public TowerData nextLvl;
 
 	[Header("Stats")]
 	public float damage;

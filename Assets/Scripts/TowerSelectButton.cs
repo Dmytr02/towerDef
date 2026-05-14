@@ -14,11 +14,11 @@ public class TowerSelectButton : MonoBehaviour
         {
             onTowerSelected?.Invoke();
             
-            if (buildTowerManager.SelectedTower == towerData)
-                buildTowerManager.SelectedTower = null;
+            if (BuildTowerManager.SelectedTower == towerData)
+                BuildTowerManager.SelectedTower = null;
             else
             {
-                buildTowerManager.SelectedTower = towerData;
+                BuildTowerManager.SelectedTower = towerData;
                 Select();
             }
         });

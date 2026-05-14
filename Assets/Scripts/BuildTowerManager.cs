@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class BuildTowerManager : MonoBehaviour
 {
     public static BitArr2D possibleValues;
-    [SerializeReference] public TowerData SelectedTower;
+    [SerializeReference] public static TowerData SelectedTower;
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
@@ -65,7 +65,6 @@ public class BuildTowerManager : MonoBehaviour
                 Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)SelectedTower.size*-0.5f+new Vector2(x, y));
                 if (possibleValues[pos.x, pos.y])
                 {
-                    Debug.Log(pos);
                     result = false;
                     material = previewMaterialBlocked;
                 }
@@ -77,7 +76,6 @@ public class BuildTowerManager : MonoBehaviour
 
         if(isBuilding) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
         
-        Debug.Log("Completed");
         return result;
     }
 
@@ -93,7 +91,7 @@ public class BuildTowerManager : MonoBehaviour
         MultiTouch.OnDragEvent.AddListener(Drag);
         MultiTouch.OnPointerDownEvent.AddListener((arg0 =>
         {
-            ZoomManager.instance.img.gameObject.SetActive(true);
+            if(SelectedTower) ZoomManager.instance.img.gameObject.SetActive(true);
             if(SceneGenerator.m_transform != null) SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = SelectedTower == null;
         }));
     }

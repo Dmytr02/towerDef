@@ -8,7 +8,6 @@ public abstract class BaseTower : MonoBehaviour {
 	protected virtual void Update() {
 		if (fireCountdown <= 0f) {
 			Shoot();
-			Debug.Log("update");
 			fireCountdown = data.attackSpeed;
 		}
 

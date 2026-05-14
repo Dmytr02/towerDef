@@ -6564,6 +6564,7 @@ GameObject:
   - component: {fileID: 1248778127}
   - component: {fileID: 1248778126}
   - component: {fileID: 1248778125}
+  - component: {fileID: 1248778129}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -6603,7 +6604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128b586daabd677448b43854df971692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedTower: {fileID: 0}
   previewMesh: {fileID: 2471533014487537046, guid: 42624c03ace047c4b8d49af10ebf2d46, type: 3}
   previewMaterial: {fileID: 2100000, guid: 8d867733e4d88d6498789c71c9b6c403, type: 2}
   previewMaterialBlocked: {fileID: 2100000, guid: d8a78d3b2a218c643a0e396a95ac6ef6, type: 2}
@@ -6678,6 +6678,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248778123}
   m_CullTransparentMesh: 1
+--- !u!114 &1248778129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248778123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a42ab2dd963604fafe549c7c6586f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTrigger: {fileID: 1248778126}
+  selectedTower: {fileID: 0}
+  visualizeMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  visualizeMaterial: {fileID: 2100000, guid: e69ab25876efc6841ab2ae494c61d07e, type: 2}
 --- !u!1 &1262986090
 GameObject:
   m_ObjectHideFlags: 0
