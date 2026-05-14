@@ -16,9 +16,11 @@ public class BuildTowerManager : MonoBehaviour
     public Material previewMaterialBlocked;
     public Material previewMaterialNoCoins;
     public MultiTouchEventTrigger MultiTouch;
-
+    private Vector2 lastPos =  new(-1, -1); 
     public void CastToTryBuild(PointerEventData touch)
     {
+        ZoomManager.instance.img.gameObject.SetActive(false);
+        lastPos = new(-1, -1);
         if(SceneGenerator.m_transform == null) return;
         SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = true;
         if(SelectedTower == null) return;
@@ -71,6 +73,8 @@ public class BuildTowerManager : MonoBehaviour
             }
         }
         towerPosition = (((Vector2)posList.Aggregate((i, vector2Int) => i + vector2Int)) /posList.Count+new Vector2(0.5f, 0.5f))/SceneGenerator._gridSize;
+        
+
         if(isBuilding) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
         
         Debug.Log("Completed");
@@ -79,21 +83,24 @@ public class BuildTowerManager : MonoBehaviour
 
     private void Awake()
     {
-        possibleValues = new BitArr2D(50, 50);
+        possibleValues = new BitArr2D(55, 55);
     }
 
+    
     private void Start()
     {
         MultiTouch.OnPointerUpEvent.AddListener(CastToTryBuild);
         MultiTouch.OnDragEvent.AddListener(Drag);
         MultiTouch.OnPointerDownEvent.AddListener((arg0 =>
         {
+            ZoomManager.instance.img.gameObject.SetActive(true);
             if(SceneGenerator.m_transform != null) SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = SelectedTower == null;
         }));
     }
 
     private void Drag(PointerEventData touch)
     {
+        ZoomManager.instance.img.rectTransform.anchoredPosition = touch.position*0.76296f+new Vector2(128, 280);
         if(SceneGenerator.m_transform == null || SelectedTower == null) return;
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         Plane plane = new Plane(SceneGenerator.m_transform.up, SceneGenerator.m_transform.position+new Vector3(0, SceneGenerator.m_transform.lossyScale.y,0));
@@ -106,6 +113,11 @@ public class BuildTowerManager : MonoBehaviour
                     SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
                     new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
             });
+            if (lastPos != position)
+            {
+                ZoomManager.instance.RenderZoom(SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(position.x-0.5f, 1, position.y-0.5f)));
+                lastPos = position;
+            }
         }
 
     }
