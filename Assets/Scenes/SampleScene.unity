@@ -6915,8 +6915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventTrigger: {fileID: 1248778126}
-  visualizeMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  visualizeMaterial: {fileID: 2100000, guid: e69ab25876efc6841ab2ae494c61d07e, type: 2}
+  visualizeMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  visualizeMaterial: {fileID: 2100000, guid: 3730460397b82b1468b4b01d5445b11f, type: 2}
   visualPanel: {fileID: 1237618949}
 --- !u!1 &1262986090
 GameObject:
