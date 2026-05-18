@@ -15,7 +15,9 @@ MonoBehaviour:
   towerName: 1
   prefab: {fileID: 8216933494665135642, guid: 631e634450b2374438258b787729b53f, type: 3}
   cost: 0
+  recoverCost: 0
   size: {x: 2, y: 2}
+  nextLvl: {fileID: 11400000, guid: c630d3bc55226ae46a9b249996a910e5, type: 2}
   damage: 2
   attackSpeed: 0.5
   range: 0.1

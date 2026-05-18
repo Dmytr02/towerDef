@@ -77,10 +77,33 @@ public class TowerManagerSingletone : MonoBehaviour
     {
         if (!selectedTower) return;
 
-        if (selectedTower.data.nextLvl && selectedTower.data.nextLvl.cost >= PlayerStats.Instance.coins)
-        {
-            selectedTower.data = selectedTower.data.nextLvl;
-            PlayerStats.Instance.coins -= selectedTower.data.nextLvl.cost;
+        TowerData nextData = selectedTower.data.nextLvl;
+
+        if (nextData == null) {
+            print("nextdata empty");
+            return;
+        }
+
+        if (PlayerStats.Instance.coins >= nextData.cost) {
+            PlayerStats.Instance.coins -= nextData.cost;
+
+            Vector3 oldPosition = selectedTower.transform.localPosition;
+            Quaternion oldRotation = selectedTower.transform.localRotation;
+            Vector3 oldScale = selectedTower.transform.localScale;
+            Transform parent = selectedTower.transform.parent;
+
+            GameObject newTowerGO = Instantiate(nextData.prefab, parent);
+            newTowerGO.transform.localPosition = oldPosition;
+            newTowerGO.transform.localRotation = oldRotation;
+            newTowerGO.transform.localScale = oldScale;
+
+            Destroy(selectedTower.gameObject);
+
+            selectedTower = newTowerGO.GetComponent<BaseTower>();
+
+            print("tower updated: ");
+        } else {
+            print("No money");
         }
     }
 
