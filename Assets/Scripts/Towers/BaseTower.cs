@@ -34,6 +34,19 @@ public abstract class BaseTower : MonoBehaviour {
 		}
 	}
 
+	protected void CreateProjectile() {
+		if (target == null || data.projectilePrefab == null) return;
+
+		Vector3 spawnPos = transform.position + Vector3.up * (transform.lossyScale.y * 0.5f);
+
+		GameObject projGO = Instantiate(data.projectilePrefab, spawnPos, Quaternion.identity);
+		Projectile proj = projGO.GetComponent<Projectile>();
+
+		if (proj != null) {
+			proj.Seek(target, data, transform.lossyScale);
+		}
+	}
+
 	protected abstract void Shoot();
 
 	private void OnDrawGizmosSelected() {

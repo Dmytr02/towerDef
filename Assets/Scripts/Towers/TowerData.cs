@@ -14,6 +14,9 @@ public class TowerData : ScriptableObject {
 	public float attackSpeed; 
 	public float range;
 	public float aoeRadius;
+	public GameObject projectilePrefab;
+	public float projectileSpeed = 10f;
+	public float arcHeight = 2f;
 
 	[Header("Special Effects")]
 	public float slowAmount = 0.4f;
