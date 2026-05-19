@@ -22,5 +22,8 @@ MonoBehaviour:
   attackSpeed: 0.5
   range: 0.1
   aoeRadius: 0
+  projectilePrefab: {fileID: 5287498626590597339, guid: ff8f25ec102083847b109a8126789e87, type: 3}
+  projectileSpeed: 2
+  arcHeight: 2
   slowAmount: 0.4
   slowDuration: 2.5

@@ -15,10 +15,15 @@ MonoBehaviour:
   towerName: 
   prefab: {fileID: 8216933494665135642, guid: 5e33f477b3fad1b4cb117bda773cde11, type: 3}
   cost: 0
+  recoverCost: 0
   size: {x: 2, y: 2}
+  nextLvl: {fileID: 0}
   damage: 0
   attackSpeed: 0.01
   range: 0.15
   aoeRadius: 0
+  projectilePrefab: {fileID: 5287498626590597339, guid: ff8f25ec102083847b109a8126789e87, type: 3}
+  projectileSpeed: 2
+  arcHeight: 2
   slowAmount: 0.5
   slowDuration: 0.05
