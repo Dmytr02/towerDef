@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewTowerData", menuName = "Tower Defense/TowerData")]
 public class TowerData : ScriptableObject {
 	public string towerName;
-	public GameObject prefab;
+	public Mesh mesh;
 	public int cost;
 	public int recoverCost;
 	public Vector2Int size;
@@ -14,7 +14,7 @@ public class TowerData : ScriptableObject {
 	public float attackSpeed; 
 	public float range;
 	public float aoeRadius;
-	public GameObject projectilePrefab;
+	public Projectile projectilePrefab;
 	public float projectileSpeed = 10f;
 	public float arcHeight = 2f;
 

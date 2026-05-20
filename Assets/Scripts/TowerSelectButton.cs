@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TowerSelectButton : MonoBehaviour
 {
-    [SerializeField] TowerData towerData;
+    [SerializeField] BaseTower towerData;
     [SerializeField] BuildTowerManager buildTowerManager;
     [SerializeField] MultiTouchEventTrigger eventTrigger;
     

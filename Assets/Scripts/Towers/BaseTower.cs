@@ -4,6 +4,7 @@ public abstract class BaseTower : MonoBehaviour {
 	public TowerData data;
 	protected float fireCountdown = 0f;
 	protected Transform target;
+	public MeshFilter TowerMeshFilter;
 
 	protected virtual void Update() {
 		if (fireCountdown <= 0f) {
@@ -27,7 +28,7 @@ public abstract class BaseTower : MonoBehaviour {
 			}
 		}
 
-		if (shortestDistance <= data.range) {
+		if (shortestDistance <= data.range*0.5f) {
 			target = nearestEnemy.transform;
 		} else {
 			target = null;
@@ -39,9 +40,8 @@ public abstract class BaseTower : MonoBehaviour {
 
 		Vector3 spawnPos = transform.position + Vector3.up * (transform.lossyScale.y * 0.5f);
 
-		GameObject projGO = Instantiate(data.projectilePrefab, spawnPos, Quaternion.identity);
-		Projectile proj = projGO.GetComponent<Projectile>();
-
+		Projectile proj = Instantiate(data.projectilePrefab, spawnPos, Quaternion.identity);
+		
 		if (proj != null) {
 			proj.Seek(target, data, transform.lossyScale);
 		}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TowerBombData
   m_EditorClassIdentifier: 
   towerName: 
-  prefab: {fileID: 8216933494665135642, guid: 0b8ae88f341a6114380bb235fde34ac2, type: 3}
+  mesh: {fileID: 3203270684752679736, guid: b98fe27f37716014bbd92e3658f518ed, type: 3}
   cost: 1
   recoverCost: 0
   size: {x: 3, y: 3}
@@ -22,8 +22,8 @@ MonoBehaviour:
   attackSpeed: 4
   range: 0.22
   aoeRadius: 0.22
-  projectilePrefab: {fileID: 5287498626590597339, guid: ff8f25ec102083847b109a8126789e87, type: 3}
+  projectilePrefab: {fileID: 4658489104485532085, guid: ff8f25ec102083847b109a8126789e87, type: 3}
   projectileSpeed: 2
   arcHeight: 2
-  slowAmount: 0.4
-  slowDuration: 2.5
+  slowAmount: 0
+  slowDuration: 0

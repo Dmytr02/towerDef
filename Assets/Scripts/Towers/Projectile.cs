@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour {
 	private Vector3 startPosition;
 	private Vector3 lastTargetPosition;
 	private float progress = 0f;
+	private float towerScale = 0f;
 
 	public void Seek(Transform _target, TowerData _data, Vector3 towerScale) {
 		target = _target;
@@ -15,6 +16,7 @@ public class Projectile : MonoBehaviour {
 		if (target != null) lastTargetPosition = target.position;
 
 		transform.localScale = Vector3.Scale(transform.localScale, towerScale);
+		this.towerScale = towerScale.x;
 	}
 
 	void Update() {
@@ -23,10 +25,11 @@ public class Projectile : MonoBehaviour {
 		}
 
 		float distanceTotal = Vector3.Distance(startPosition, lastTargetPosition);
-		if (distanceTotal <= 0.1f) { HitTarget(); return; }
+		print(distanceTotal/towerScale + " | " + ((data.projectileSpeed / distanceTotal) * Time.deltaTime*towerScale));
+		if (distanceTotal <= 0.1f*towerScale) { HitTarget(); return; }
 
-		progress += (data.projectileSpeed / distanceTotal) * Time.deltaTime;
-
+		progress += (data.projectileSpeed / distanceTotal) * Time.deltaTime*towerScale;
+		
 		if (progress >= 1f) {
 			HitTarget();
 			return;
@@ -34,7 +37,7 @@ public class Projectile : MonoBehaviour {
 
 		Vector3 currentPos = Vector3.Lerp(startPosition, lastTargetPosition, progress);
 
-		float arc = 4f * data.arcHeight * progress * (1f - progress);
+		float arc = 4f * data.arcHeight * towerScale * progress * (1f - progress);
 		currentPos.y += arc;
 
 		transform.position = currentPos;
@@ -52,11 +55,11 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void ApplyEffect(Transform enemy) {
-		if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth health)) {
+		if (data.damage > 0 && enemy.TryGetComponent(out EnemyHealth health)) {
 			health.TakeDamage(data.damage);
 		}
 
-		if (enemy.TryGetComponent<WaypointManager>(out WaypointManager move)) {
+		if (data.slowDuration > 0 && data.slowAmount != 1 && enemy.TryGetComponent(out WaypointManager move)) {
 			if (data.slowAmount > 0) {
 				move.ApplySlow(data.slowAmount, data.slowDuration);
 			}
