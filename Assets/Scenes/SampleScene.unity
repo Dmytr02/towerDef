@@ -2613,7 +2613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d682babd8e7054f8b01a2ad7ad0ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 11400000, guid: 1da42dfb67877e941aa8f9da9f42991b, type: 2}
+  towerData: {fileID: 4931507506111959396, guid: ef1e8d7d9ba776a4e833a411dd15b4e9, type: 3}
   buildTowerManager: {fileID: 1248778125}
   eventTrigger: {fileID: 602346535}
 --- !u!114 &602346537
@@ -3271,7 +3271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d682babd8e7054f8b01a2ad7ad0ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 11400000, guid: 2a080413bdb308741b03a29e9fe75359, type: 2}
+  towerData: {fileID: 8157965893380690501, guid: 5e33f477b3fad1b4cb117bda773cde11, type: 3}
   buildTowerManager: {fileID: 1248778125}
   eventTrigger: {fileID: 780240874}
 --- !u!114 &780240876
@@ -3672,7 +3672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d682babd8e7054f8b01a2ad7ad0ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 11400000, guid: a2734bbca8c132041a1f6080eea0bbb8, type: 2}
+  towerData: {fileID: 1651534940995527190, guid: 0b8ae88f341a6114380bb235fde34ac2, type: 3}
   buildTowerManager: {fileID: 1248778125}
   eventTrigger: {fileID: 809329612}
 --- !u!114 &809329610
@@ -4634,7 +4634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d682babd8e7054f8b01a2ad7ad0ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 11400000, guid: c630d3bc55226ae46a9b249996a910e5, type: 2}
+  towerData: {fileID: 454497886212209961, guid: 631e634450b2374438258b787729b53f, type: 3}
   buildTowerManager: {fileID: 1248778125}
   eventTrigger: {fileID: 912593535}
 --- !u!114 &912593537
