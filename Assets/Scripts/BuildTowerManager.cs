@@ -42,6 +42,11 @@ public class BuildTowerManager : MonoBehaviour
         PlayerStats.Instance.coins -= SelectedTower.data.cost;
     }
 
+    public static void DestroyTower(BaseTower tower)
+    {
+        TryDestroy(new Vector2(tower.transform.position.x, tower.transform.position.z) * SceneGenerator._gridSize, tower.data);
+    }
+    
     public bool CanBuild(Vector3 position, out Vector2 towerPosition, out Material material, bool isBuilding = false)
     {
         return CanBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize, out towerPosition, out material, isBuilding);
@@ -74,11 +79,32 @@ public class BuildTowerManager : MonoBehaviour
         towerPosition = (((Vector2)posList.Aggregate((i, vector2Int) => i + vector2Int)) /posList.Count+new Vector2(0.5f, 0.5f))/SceneGenerator._gridSize;
         
 
-        if(isBuilding) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
+        if(isBuilding && result) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
         
         return result;
     }
 
+    public static void TryDestroy(Vector2 position, TowerData data)
+    {
+        bool result = true;
+        List<Vector2Int> posList = new List<Vector2Int>();
+        for (int x = 0; x < data.size.x; x++)
+        {
+            for (int y = 0; y < data.size.y; y++)
+            {
+                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)data.size*-0.5f+new Vector2(x, y));
+                if (!possibleValues[pos.x, pos.y])
+                {
+                    result = false;
+                }
+                posList.Add(pos);
+            }
+        }
+        
+
+        if(result) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = false;
+    }
+    
     private void Awake()
     {
         possibleValues = new BitArr2D(55, 55);

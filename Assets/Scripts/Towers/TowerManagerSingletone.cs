@@ -89,6 +89,7 @@ public class TowerManagerSingletone : MonoBehaviour
             
             selectedTower.data = nextData;
             selectedTower.TowerMeshFilter.mesh = selectedTower.data.mesh;
+            BuildTowerManager.DestroyTower(selectedTower);
             
             /*Vector3 oldPosition = selectedTower.transform.localPosition;
             Quaternion oldRotation = selectedTower.transform.localRotation;

@@ -49,6 +49,12 @@ public abstract class BaseTower : MonoBehaviour {
 
 	protected abstract void Shoot();
 
+	protected virtual string GetStats()
+	{
+		return "";
+		
+	}
+
 	private void OnDrawGizmosSelected() {
 		if (data == null) return;
 		Gizmos.color = Color.red;
