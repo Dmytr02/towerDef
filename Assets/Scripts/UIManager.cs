@@ -1,24 +1,47 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject menu;
+    public GameObject pauseMenu;
 
     private void Start()
     {
-        Pause();
+        ShowMenu();
+        SetTimeScale(0);
     }
 
+    public void SetTimeScale(float timeScale)
+    {
+        Time.timeScale = timeScale;
+    } 
+    public void HideMenu()
+    {
+        menu.SetActive(false);
+    }
+    
+    public void ShowMenu()
+    {
+        menu.SetActive(true);
+    }
+    
     public void Pause()
     {
-        Time.timeScale = 0;
-        menu.SetActive(true);
+        pauseMenu.SetActive(true);
     }
 
     public void UnPause()
     {
-        Time.timeScale = 1;
-        menu.SetActive(false);
+        pauseMenu.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;     
+        #endif
     }
 }

@@ -149,7 +149,7 @@ public class BuildTowerManager : MonoBehaviour
 
     private void Drag(PointerEventData touch)
     {
-        ZoomManager.instance.img.rectTransform.anchoredPosition = touch.position*0.76296f+new Vector2(128, 280);
+        ZoomManager.instance.img.rectTransform.anchoredPosition = (touch.position+new Vector2(128, 350)).Clamp(new Vector2(256, 256), new Vector2(1080, 2400));
         if(SceneGenerator.m_transform == null || SelectedTower == null) return;
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         Plane plane = new Plane(SceneGenerator.m_transform.up, SceneGenerator.m_transform.position+new Vector3(0, SceneGenerator.m_transform.lossyScale.y,0));

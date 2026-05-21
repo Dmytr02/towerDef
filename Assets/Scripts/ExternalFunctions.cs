@@ -21,4 +21,9 @@ public static class ExternalFunctions
     {
         return new Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
     }
+
+    public static Vector2 Clamp(this Vector2 value, Vector2 min, Vector2 max)
+    {
+        return new Vector2(Mathf.Clamp(value.x, min.x, max.x), Mathf.Clamp(value.y, min.y, max.y));
+    }
 }

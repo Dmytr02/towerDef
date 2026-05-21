@@ -21,15 +21,21 @@ public class TowerManagerSingletone : MonoBehaviour
             if (value != null)
             {
                 visualPanel.SetActive(true);
+                visualBuildPanel.SetActive(false);
                 towerDescription.text = value.GetStats();
             }
-            else visualPanel.SetActive(false);
+            else
+            {
+                visualPanel.SetActive(false);
+                visualBuildPanel.SetActive(true);
+            }
         }
     }
     public Mesh visualizeMesh;
     public Material visualizeMaterial;
 
     public GameObject visualPanel;
+    public GameObject visualBuildPanel;
     
     void Awake()
     {
@@ -39,6 +45,7 @@ public class TowerManagerSingletone : MonoBehaviour
             return;
         }
         visualPanel.SetActive(false);
+        visualBuildPanel.SetActive(true);
         Instance = this;
     }
 
