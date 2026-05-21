@@ -12,4 +12,9 @@ public class IceTower : BaseTower {
 			}
 		}
 	}
+	
+	public override string GetStats()
+	{
+		return $"slow straight: {data.slowAmount} {(data.nextLvl != null ? $"->{data.nextLvl.slowAmount}" : "")}\nrange: {data.range} {(data.nextLvl != null ? $"->{data.nextLvl.range}" : "")}";
+	}
 }

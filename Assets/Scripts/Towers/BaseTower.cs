@@ -49,7 +49,7 @@ public abstract class BaseTower : MonoBehaviour {
 
 	protected abstract void Shoot();
 
-	protected virtual string GetStats()
+	public virtual string GetStats()
 	{
 		return "";
 		

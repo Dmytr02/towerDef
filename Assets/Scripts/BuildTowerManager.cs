@@ -44,9 +44,27 @@ public class BuildTowerManager : MonoBehaviour
 
     public static void DestroyTower(BaseTower tower)
     {
-        TryDestroy(new Vector2(tower.transform.position.x, tower.transform.position.z) * SceneGenerator._gridSize, tower.data);
+        Debug.Log("Destroying tower: " + tower.name);
+        Vector3 position = SceneGenerator.m_transform.InverseTransformPoint(tower.transform.position);
+        TryDestroy(new Vector2(position.x, position.z) * SceneGenerator._gridSize, tower.data);
     }
-    
+
+    private void OnDrawGizmos()
+    {
+        if(!SceneGenerator.m_transform) return;
+        Gizmos.matrix = SceneGenerator.m_transform.localToWorldMatrix;
+
+        for (int x = 0; x < possibleValues.xsize; x++)
+        {
+            for (int y = 0; y < possibleValues.ysize; y++)
+            {
+                if(possibleValues[x, y]) Gizmos.color = Color.red;
+                else Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(new Vector3((x+0.5f)/(float)possibleValues.xsize-0.5f, 0, (y+0.5f)/(float)possibleValues.ysize-0.5f), Vector3.one/possibleValues.xsize*0.9f);
+            }
+        }
+    }
+
     public bool CanBuild(Vector3 position, out Vector2 towerPosition, out Material material, bool isBuilding = false)
     {
         return CanBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize, out towerPosition, out material, isBuilding);
@@ -92,17 +110,24 @@ public class BuildTowerManager : MonoBehaviour
         {
             for (int y = 0; y < data.size.y; y++)
             {
-                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)data.size*-0.5f+new Vector2(x, y));
+                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)data.size*-0.75f+new Vector2(x, y));
                 if (!possibleValues[pos.x, pos.y])
                 {
                     result = false;
+                    print(pos);
                 }
                 posList.Add(pos);
             }
         }
+        print(result);
         
-
-        if(result) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = false;
+        
+        if(result)
+            foreach (Vector2Int pos in posList)
+            {
+                print(pos.x + ", " + pos.y);
+                possibleValues[pos.x, pos.y] = false;
+            }
     }
     
     private void Awake()
@@ -194,9 +219,9 @@ public class BitArr
 public class BitArr2D
 {
     BitArr bitArr;
-    int xsize;
-    int ysize;
-
+    public int xsize;
+    public int ysize;
+    public Vector2Int Size => new Vector2Int(xsize, ysize);
     public bool this[int x, int y]
     {
         get

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -9,6 +10,7 @@ public class TowerManagerSingletone : MonoBehaviour
     public static TowerManagerSingletone Instance;
     [SerializeField] private MultiTouchEventTrigger eventTrigger;
     private BaseTower _selectedTower;
+    [SerializeField] private TMP_Text towerDescription;
 
     public BaseTower selectedTower
     {
@@ -16,8 +18,12 @@ public class TowerManagerSingletone : MonoBehaviour
         set
         {
             _selectedTower = value;
-            if(value != null)  visualPanel.SetActive(true);
-            else   visualPanel.SetActive(false);
+            if (value != null)
+            {
+                visualPanel.SetActive(true);
+                towerDescription.text = value.GetStats();
+            }
+            else visualPanel.SetActive(false);
         }
     }
     public Mesh visualizeMesh;
@@ -89,7 +95,6 @@ public class TowerManagerSingletone : MonoBehaviour
             
             selectedTower.data = nextData;
             selectedTower.TowerMeshFilter.mesh = selectedTower.data.mesh;
-            BuildTowerManager.DestroyTower(selectedTower);
             
             /*Vector3 oldPosition = selectedTower.transform.localPosition;
             Quaternion oldRotation = selectedTower.transform.localRotation;
@@ -116,6 +121,7 @@ public class TowerManagerSingletone : MonoBehaviour
         if (!selectedTower) return;
         
         PlayerStats.Instance.coins += selectedTower.data.recoverCost;
+        BuildTowerManager.DestroyTower(selectedTower);
         Destroy(selectedTower.gameObject);
         selectedTower = null;
         SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = true;
