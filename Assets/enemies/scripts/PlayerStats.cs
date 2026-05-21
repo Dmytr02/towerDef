@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
     [SerializeField] private int startCoins = 5;
-    
+    [SerializeField] private UnityEvent Death;
     private int _coins;
 
     public int coins
@@ -72,6 +73,7 @@ public class PlayerStats : MonoBehaviour
     public void RemoveLife()
     {
         lives--;
+        if (lives <= 0) Death?.Invoke();
         UpdateUI();
     }
 

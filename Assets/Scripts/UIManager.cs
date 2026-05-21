@@ -7,6 +7,15 @@ public class UIManager : MonoBehaviour
 {
     public GameObject pauseMenu;
 
+    private void Update()
+    {
+        #if UNITY_EDITOR
+            if(!pauseMenu) return;
+            if (Input.GetKey(KeyCode.P)) Time.timeScale = 10;
+            else if(pauseMenu.activeSelf) Time.timeScale = 0;
+            else Time.timeScale = 1;
+        #endif
+    }
 
     public void SetTimeScale(float timeScale)
     {
