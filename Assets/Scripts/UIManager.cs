@@ -1,30 +1,24 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject menu;
     public GameObject pauseMenu;
 
-    private void Start()
-    {
-        ShowMenu();
-        SetTimeScale(0);
-    }
 
     public void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;
-    } 
-    public void HideMenu()
-    {
-        menu.SetActive(false);
     }
-    
-    public void ShowMenu()
+
+    public void LoadScene(string scene)
     {
-        menu.SetActive(true);
+        SceneManager.LoadScene(scene);
+    } public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
     }
     
     public void Pause()
