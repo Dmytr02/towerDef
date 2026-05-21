@@ -238,7 +238,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             }
             else
             {
-                if(m_BuildTowerManager.SelectedTower != null) return false;
+                if(BuildTowerManager.SelectedTower || TowerManagerSingletone.Instance.selectedTower) return false;
                 newObject.transform.position = spawnPoint;
             }
 

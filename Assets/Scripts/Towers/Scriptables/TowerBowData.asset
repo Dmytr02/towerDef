@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: TowerBowData
   m_EditorClassIdentifier: 
   towerName: 1
-  prefab: {fileID: 8216933494665135642, guid: 631e634450b2374438258b787729b53f, type: 3}
+  mesh: {fileID: 3203270684752679736, guid: b98fe27f37716014bbd92e3658f518ed, type: 3}
   cost: 0
+  recoverCost: 0
   size: {x: 2, y: 2}
+  nextLvl: {fileID: 11400000, guid: 07b39b75ec5d77a4fa5a5a6b9e5c989b, type: 2}
   damage: 2
   attackSpeed: 0.5
   range: 0.1
   aoeRadius: 0
-  slowAmount: 0.4
-  slowDuration: 2.5
+  projectilePrefab: {fileID: 4658489104485532085, guid: ff8f25ec102083847b109a8126789e87, type: 3}
+  projectileSpeed: 2
+  arcHeight: 0.4
+  slowAmount: 0
+  slowDuration: 0

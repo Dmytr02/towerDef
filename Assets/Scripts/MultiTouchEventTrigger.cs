@@ -58,8 +58,6 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
 
     public void OrderedUpdate()
     {
-        if (!gameObject.activeInHierarchy && enabled) return;
-
         for (int i = 0; i < Input.touchCount; i++)
         {
             Touch touch = Input.GetTouch(i);
@@ -69,7 +67,7 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, touchPos, null) && !fingerToObject.ContainsKey(fingerId))
+                    if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, touchPos, null) && !fingerToObject.ContainsKey(fingerId) && gameObject.activeInHierarchy && enabled)
                     {
                         fingerToObject[fingerId] = this;
 
@@ -79,13 +77,14 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
                         pointerEventDatas[fingerId] = ped;
                         pressPositions[fingerId] = (touchPos, Time.time);
 
+                        Debug.Log("SelectTOwer");
                         OnPointerDownEvent?.Invoke(ped);
                     }
                     break;
 
                 case TouchPhase.Moved:
                 case TouchPhase.Stationary:
-                    if (fingerToObject.ContainsKey(fingerId) && fingerToObject[fingerId] == this)
+                    if (fingerToObject.ContainsKey(fingerId) && fingerToObject[fingerId] == this && gameObject.activeInHierarchy && enabled)
                     {
                         PointerEventData ped = pointerEventDatas[fingerId];
                         ped.delta = touchPos - ped.position;
@@ -98,15 +97,19 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
                 case TouchPhase.Ended:
                     if (fingerToObject.ContainsKey(fingerId) && fingerToObject[fingerId] == this)
                     {
-                        PointerEventData ped = pointerEventDatas[fingerId];
-                        ped.delta = touchPos - ped.position;
-                        ped.position = touchPos;
+                        if (gameObject.activeInHierarchy && enabled)
+                        {
+                            PointerEventData ped = pointerEventDatas[fingerId];
+                            ped.delta = touchPos - ped.position;
+                            ped.position = touchPos;
 
-                        OnPointerUpEvent?.Invoke(ped);
+                            OnPointerUpEvent?.Invoke(ped);
 
-                        if (Vector2.Distance(pressPositions[fingerId].Item1, touchPos) <= clickThreshold && Time.time-pressPositions[fingerId].Item2 < clickTimeThreshold)
-                            OnClickEvent?.Invoke(ped);
-                        
+                            if (Vector2.Distance(pressPositions[fingerId].Item1, touchPos) <= clickThreshold &&
+                                Time.time - pressPositions[fingerId].Item2 < clickTimeThreshold)
+                                OnClickEvent?.Invoke(ped);
+                        }
+
                         fingerToObject.Remove(fingerId);
 
                         activePointers.Remove(fingerId); 
@@ -124,7 +127,7 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
             int mouseId = -1; 
             if (Input.GetMouseButtonDown(0))
             {
-                if (!fingerToObject.ContainsKey(mouseId) && RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, null))
+                if (!fingerToObject.ContainsKey(mouseId) && RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, null)&& gameObject.activeInHierarchy && enabled)
                 {
                     fingerToObject[mouseId] = this;
 
@@ -136,7 +139,7 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
                     OnPointerDownEvent?.Invoke(ped);
                 }
             }
-            else if (Input.GetMouseButton(0) && fingerToObject.ContainsKey(mouseId) && fingerToObject[mouseId] == this)
+            else if (Input.GetMouseButton(0) && fingerToObject.ContainsKey(mouseId) && fingerToObject[mouseId] == this&& gameObject.activeInHierarchy && enabled)
             {
                 PointerEventData ped = pointerEventDatas[mouseId];
                 ped.delta = (Vector2)mousePos - ped.position;
@@ -145,16 +148,20 @@ public class MultiTouchEventTrigger : MonoBehaviour, IComparable<MultiTouchEvent
             }
             else if (Input.GetMouseButtonUp(0) && fingerToObject.ContainsKey(mouseId) && fingerToObject[mouseId] == this)
             {
-                PointerEventData ped = pointerEventDatas[mouseId];
-                ped.delta = (Vector2)mousePos - ped.position;
-                ped.position = mousePos;
+                if (gameObject.activeInHierarchy && enabled)
+                {
+                    PointerEventData ped = pointerEventDatas[mouseId];
+                    ped.delta = (Vector2)mousePos - ped.position;
+                    ped.position = mousePos;
 
-                OnPointerUpEvent?.Invoke(ped);
+                    OnPointerUpEvent?.Invoke(ped);
 
-                //Debug.Log(Vector2.Distance(pressPositions[mouseId].Item1, mousePos) + " | " + (Time.time-pressPositions[mouseId].Item2));
-                if (Vector2.Distance(pressPositions[mouseId].Item1, mousePos) <= clickThreshold && Time.time-pressPositions[mouseId].Item2 < clickTimeThreshold)
-                    OnClickEvent?.Invoke(ped);
-                
+                    //Debug.Log(Vector2.Distance(pressPositions[mouseId].Item1, mousePos) + " | " + (Time.time-pressPositions[mouseId].Item2));
+                    if (Vector2.Distance(pressPositions[mouseId].Item1, mousePos) <= clickThreshold &&
+                        Time.time - pressPositions[mouseId].Item2 < clickTimeThreshold)
+                        OnClickEvent?.Invoke(ped);
+                }
+
 
                 fingerToObject.Remove(mouseId);
 

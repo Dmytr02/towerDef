@@ -4,11 +4,11 @@ public abstract class BaseTower : MonoBehaviour {
 	public TowerData data;
 	protected float fireCountdown = 0f;
 	protected Transform target;
+	public MeshFilter TowerMeshFilter;
 
 	protected virtual void Update() {
 		if (fireCountdown <= 0f) {
 			Shoot();
-			Debug.Log("update");
 			fireCountdown = data.attackSpeed;
 		}
 
@@ -28,14 +28,32 @@ public abstract class BaseTower : MonoBehaviour {
 			}
 		}
 
-		if (shortestDistance <= data.range) {
+		if (shortestDistance <= data.range*0.5f) {
 			target = nearestEnemy.transform;
 		} else {
 			target = null;
 		}
 	}
 
+	protected void CreateProjectile() {
+		if (target == null || data.projectilePrefab == null) return;
+
+		Vector3 spawnPos = transform.position + Vector3.up * (transform.lossyScale.y * 0.5f);
+
+		Projectile proj = Instantiate(data.projectilePrefab, spawnPos, Quaternion.identity);
+		
+		if (proj != null) {
+			proj.Seek(target, data, transform.lossyScale);
+		}
+	}
+
 	protected abstract void Shoot();
+
+	protected virtual string GetStats()
+	{
+		return "";
+		
+	}
 
 	private void OnDrawGizmosSelected() {
 		if (data == null) return;

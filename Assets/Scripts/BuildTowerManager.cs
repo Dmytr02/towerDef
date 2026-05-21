@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class BuildTowerManager : MonoBehaviour
 {
     public static BitArr2D possibleValues;
-    [SerializeReference] public TowerData SelectedTower;
+    [SerializeReference] public static BaseTower SelectedTower;
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
@@ -35,13 +35,18 @@ public class BuildTowerManager : MonoBehaviour
     public void TryBuild(Vector2 position)
     {
         if (!CanBuild(position, out Vector2 towerPosition, out Material mat, true)) return;
-        GameObject tower = Instantiate(SelectedTower.prefab, SceneGenerator.m_transform);
+        BaseTower tower = Instantiate(SelectedTower, SceneGenerator.m_transform);
         tower.transform.localPosition = new Vector3(towerPosition.x-0.5f, 1, towerPosition.y-0.5f);
         tower.transform.localScale = new Vector3(1.0f /SceneGenerator._gridSize.x, 20.0f /SceneGenerator._gridSize.x, 1.0f /SceneGenerator._gridSize.x);
         tower.transform.localRotation = Quaternion.identity;
-        PlayerStats.Instance.coins -= SelectedTower.cost;
+        PlayerStats.Instance.coins -= SelectedTower.data.cost;
     }
 
+    public static void DestroyTower(BaseTower tower)
+    {
+        TryDestroy(new Vector2(tower.transform.position.x, tower.transform.position.z) * SceneGenerator._gridSize, tower.data);
+    }
+    
     public bool CanBuild(Vector3 position, out Vector2 towerPosition, out Material material, bool isBuilding = false)
     {
         return CanBuild(new Vector2(position.x, position.z) * SceneGenerator._gridSize, out towerPosition, out material, isBuilding);
@@ -51,21 +56,20 @@ public class BuildTowerManager : MonoBehaviour
     {
         material = previewMaterial;
         bool result = true;
-        if (SelectedTower.cost > PlayerStats.Instance.coins)
+        if (SelectedTower.data.cost > PlayerStats.Instance.coins)
         {
             result = false;
             material = previewMaterialNoCoins;
         }
         towerPosition = position;
         List<Vector2Int> posList = new List<Vector2Int>();
-        for (int x = 0; x < SelectedTower.size.x; x++)
+        for (int x = 0; x < SelectedTower.data.size.x; x++)
         {
-            for (int y = 0; y < SelectedTower.size.y; y++)
+            for (int y = 0; y < SelectedTower.data.size.y; y++)
             {
-                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)SelectedTower.size*-0.5f+new Vector2(x, y));
+                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)SelectedTower.data.size*-0.5f+new Vector2(x, y));
                 if (possibleValues[pos.x, pos.y])
                 {
-                    Debug.Log(pos);
                     result = false;
                     material = previewMaterialBlocked;
                 }
@@ -75,12 +79,32 @@ public class BuildTowerManager : MonoBehaviour
         towerPosition = (((Vector2)posList.Aggregate((i, vector2Int) => i + vector2Int)) /posList.Count+new Vector2(0.5f, 0.5f))/SceneGenerator._gridSize;
         
 
-        if(isBuilding) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
+        if(isBuilding && result) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = true;
         
-        Debug.Log("Completed");
         return result;
     }
 
+    public static void TryDestroy(Vector2 position, TowerData data)
+    {
+        bool result = true;
+        List<Vector2Int> posList = new List<Vector2Int>();
+        for (int x = 0; x < data.size.x; x++)
+        {
+            for (int y = 0; y < data.size.y; y++)
+            {
+                Vector2Int pos = Vector2Int.CeilToInt((Vector2)SceneGenerator._gridSize*0.5f+position+(Vector2)data.size*-0.5f+new Vector2(x, y));
+                if (!possibleValues[pos.x, pos.y])
+                {
+                    result = false;
+                }
+                posList.Add(pos);
+            }
+        }
+        
+
+        if(result) foreach (Vector2Int pos in posList) possibleValues[pos.x, pos.y] = false;
+    }
+    
     private void Awake()
     {
         possibleValues = new BitArr2D(55, 55);
@@ -93,7 +117,7 @@ public class BuildTowerManager : MonoBehaviour
         MultiTouch.OnDragEvent.AddListener(Drag);
         MultiTouch.OnPointerDownEvent.AddListener((arg0 =>
         {
-            ZoomManager.instance.img.gameObject.SetActive(true);
+            if(SelectedTower) ZoomManager.instance.img.gameObject.SetActive(true);
             if(SceneGenerator.m_transform != null) SceneGenerator.m_transform.parent.GetComponent<XRGrabInteractable>().trackPosition = SelectedTower == null;
         }));
     }
@@ -111,7 +135,7 @@ public class BuildTowerManager : MonoBehaviour
             {
                 Matrix4x4.TRS(
                     SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
-                    new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.size.y))
+                    new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.data.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.data.size.y))
             });
             if (lastPos != position)
             {
