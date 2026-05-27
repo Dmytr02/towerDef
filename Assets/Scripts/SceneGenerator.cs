@@ -32,6 +32,8 @@ public class SceneGenerator : MonoBehaviour {
 
 	public static List<Vector3> Path { get { return _Path.Select(n => m_transform.localToWorldMatrix.MultiplyPoint((new Vector3((n.x + 0.5f) / (float)_gridSize.x - 0.5f, 1, (n.y + 0.5f) / (float)_gridSize.y - 0.5f)))).ToList(); } }
 	public static Vector3 enemyScale;
+	
+	[SerializeField] GameObject mainTowerPrefab;
 	private void Awake() {
 		_gridSize = new Vector2Int(xSize, zSize);
 		m_transform = transform;
@@ -66,6 +68,12 @@ public class SceneGenerator : MonoBehaviour {
 				if (way[i] + Vector2.up == way[i + 1]) mask |= 1 << 1;
 				if (way[i] + Vector2.left == way[i + 1]) mask |= 1 << 2;
 				if (way[i] + Vector2.right == way[i + 1]) mask |= 1 << 3;
+			}
+			else
+			{
+				GameObject mainTower = Instantiate(mainTowerPrefab, transform);
+				mainTower.transform.localPosition = new Vector3((way[i].x+.5f)/xSize-0.5f, 1, (way[i].y+.5f)/zSize-0.5f);
+				mainTower.transform.localScale = new Vector3(1/(float)xSize, 1, 1/(float)zSize);
 			}
 
 			if (i != 0) {

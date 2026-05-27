@@ -17,6 +17,7 @@ public class BuildTowerManager : MonoBehaviour
     public Material previewMaterialNoCoins;
     public MultiTouchEventTrigger MultiTouch;
     private Vector2 lastPos =  new(-1, -1); 
+    
     public void CastToTryBuild(PointerEventData touch)
     {
         ZoomManager.instance.img.gameObject.SetActive(false);
@@ -60,7 +61,7 @@ public class BuildTowerManager : MonoBehaviour
             {
                 if(possibleValues[x, y]) Gizmos.color = Color.red;
                 else Gizmos.color = Color.green;
-                Gizmos.DrawWireCube(new Vector3((x+0.5f)/(float)possibleValues.xsize-0.5f, 0, (y+0.5f)/(float)possibleValues.ysize-0.5f), Vector3.one/possibleValues.xsize*0.9f);
+                Gizmos.DrawWireCube(new Vector3((x+0.5f)/(float)possibleValues.xsize-0.5f, 1, (y+0.5f)/(float)possibleValues.ysize-0.5f), Vector3.one/possibleValues.xsize*0.9f);
             }
         }
     }
