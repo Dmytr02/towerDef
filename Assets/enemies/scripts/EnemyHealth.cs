@@ -64,23 +64,28 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die(bool isKilled = true)
     {
-        if (PlayerStats.Instance != null)
+        if (isKilled)
         {
-            PlayerStats.Instance.AddCoins(enemyData.coinReward);
-            audioSource.PlayOneShot(DeathSound);
-
-            if (enemyData.giveLife)
+            if (PlayerStats.Instance != null)
             {
-                PlayerStats.Instance.AddLives();
+                PlayerStats.Instance.AddCoins(enemyData.coinReward);
+                audioSource.PlayOneShot(DeathSound);
+
+                if (enemyData.giveLife)
+                {
+                    PlayerStats.Instance.AddLives();
+                }
+            }
+
+            if (WaveManager.Instance != null)
+            {
+                WaveManager.Instance.OnEnemyDied();
             }
         }
 
-        if (WaveManager.Instance != null)
-        {
-            WaveManager.Instance.OnEnemyDied();
-        }
+        Debug.Log("Death Invoke");
         OnDeath.Invoke();
         Destroy(gameObject);
     }

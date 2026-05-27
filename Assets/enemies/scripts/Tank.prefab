@@ -990,6 +990,7 @@ MonoBehaviour:
   waypointIndex: 0
   speedMultiplier: 1
   enemyData: {fileID: 11400000, guid: 5e4fc555d74285d4f9fbde5aa9f6ec72, type: 2}
+  Health: {fileID: 5002358486163453453}
 --- !u!82 &6571205018040126967
 AudioSource:
   m_ObjectHideFlags: 0

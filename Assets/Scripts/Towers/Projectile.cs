@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour {
 		}
 
 		float distanceTotal = Vector3.Distance(startPosition, lastTargetPosition);
-		print(distanceTotal/towerScale + " | " + ((data.projectileSpeed / distanceTotal) * Time.deltaTime*towerScale));
+		//print(distanceTotal/towerScale + " | " + ((data.projectileSpeed / distanceTotal) * Time.deltaTime*towerScale));
 		if (distanceTotal <= 0.1f*towerScale) { HitTarget(); return; }
 
 		progress += (data.projectileSpeed / distanceTotal) * Time.deltaTime*towerScale;

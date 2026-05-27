@@ -6,6 +6,11 @@ public class MultiTouchEventManager : MonoBehaviour
 {
     private static List<MultiTouchEventTrigger> eventTriggers = new List<MultiTouchEventTrigger>();
 
+    private void Awake()
+    {
+        eventTriggers.Clear();
+    }
+
     public static void AddEvent(MultiTouchEventTrigger trigger)
     {
         eventTriggers.AddSorted(trigger);
