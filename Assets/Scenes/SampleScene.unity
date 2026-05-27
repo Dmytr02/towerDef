@@ -693,7 +693,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1765209028}
         m_TargetAssemblyTypeName: UIManager, Unity.XR.Interaction.Toolkit.Samples.StarterAssets
-        m_MethodName: LoadScene
+        m_MethodName: ClearDontDestroy
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1911,7 +1911,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1765209028}
         m_TargetAssemblyTypeName: UIManager, Unity.XR.Interaction.Toolkit.Samples.StarterAssets
-        m_MethodName: LoadScene
+        m_MethodName: ClearDontDestroy
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4922,7 +4922,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1765209028}
         m_TargetAssemblyTypeName: UIManager, Unity.XR.Interaction.Toolkit.Samples.StarterAssets
-        m_MethodName: LoadScene
+        m_MethodName: ClearDontDestroy
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

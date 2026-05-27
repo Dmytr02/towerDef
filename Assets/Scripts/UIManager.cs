@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.Management;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,7 +25,61 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = timeScale;
     }
+    private IEnumerator ExecuteReload(int name)
+    {
+        
+        // 1. Całkowicie zatrzymaj podsystemy XR i skaner środowiska symulacji
+        if (XRGeneralSettings.Instance != null && XRGeneralSettings.Instance.Manager != null)
+        {
+            XRGeneralSettings.Instance.Manager.StopSubsystems();
+            XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+        }
 
+        // 2. Poczekaj dwie klatki, aby Unity przetworzyło usunięcie obiektów z pamięci
+        yield return null;
+        yield return null;
+
+        // 3. Ładowanie nowej sceny w trybie Single (czyści starą scenę)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        // 4. Poczekaj klatkę na zainicjalizowanie obiektów nowej sceny
+        yield return null;
+
+        
+        
+        
+        /*// 6. Znajdujemy NOWĄ sesję AR, włączamy ją i wymuszamy twardy reset podsystemu kamery
+        ARSession newSession = FindFirstObjectByType<ARSession>();
+        if (newSession != null)
+        {
+            newSession.enabled = true;
+            newSession.Reset(); // To budzi kamerę w Edytorze (Symulacji) oraz na Telefonie
+        }*/
+    }
+
+    private void Start()
+    {
+        StartCoroutine(StartCorutine());
+    }
+
+    IEnumerator StartCorutine()
+    {
+        // 5. Uruchom podsystemy XR na nowo dla nowej sceny
+        if (XRGeneralSettings.Instance != null && XRGeneralSettings.Instance.Manager != null)
+        {
+            yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+            XRGeneralSettings.Instance.Manager.StartSubsystems();
+        }
+    }
+    public void ClearDontDestroy(int name)
+    {
+        StartCoroutine(ExecuteReload(name));
+    }
+    
     public void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);

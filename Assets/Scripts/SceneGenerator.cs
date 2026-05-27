@@ -45,6 +45,11 @@ public class SceneGenerator : MonoBehaviour {
 		}
 	}
 
+	private void OnDestroy()
+	{
+		m_transform = null;
+	}
+
 	private void Start() {
 		Vector2Int[] way = WayGenerator.GenerateWay(_grid, points.Select(n => Vector2Int.CeilToInt(new Vector2(n.x*xSize, n.y*zSize))).ToList(), new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) }, 1).Select(n => new Vector2Int(n.x, n.y)).ToArray();
 		_Path = way.ToList();
