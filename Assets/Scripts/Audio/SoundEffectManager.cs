@@ -16,8 +16,6 @@ public class SoundEffectManager : MonoBehaviour {
 
 			globalSource = gameObject.AddComponent<AudioSource>();
 			globalSource.playOnAwake = false;
-
-			DontDestroyOnLoad(gameObject);
 		} else {
 			Destroy(gameObject);
 		}
