@@ -17,7 +17,7 @@ MonoBehaviour:
   cost: 4
   recoverCost: 0
   size: {x: 2, y: 2}
-  nextLvl: {fileID: 0}
+  nextLvl: {fileID: 11400000, guid: 7d5a8fe73fd2cdf40af1c968777f892b, type: 2}
   damage: 30
   attackSpeed: 0.5
   range: 0.15
