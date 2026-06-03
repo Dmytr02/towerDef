@@ -13,6 +13,7 @@ public class WaypointManager : MonoBehaviour
     public int waypointIndex;
     public float speedMultiplier = 1f;
     [SerializeField] private EnemyData enemyData;
+    [SerializeField] private EnemyHealth Health;
     
     private Coroutine moveCoroutine;
     private void Start()
@@ -85,7 +86,7 @@ public class WaypointManager : MonoBehaviour
             
             WaveManager.Instance.OnEnemyDied();
 
-            Destroy(gameObject);
+            Health.Die(false);
         }
     }
 }

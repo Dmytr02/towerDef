@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+[RequireComponent(typeof(AudioSource))]
 public class EnemyHealth : MonoBehaviour
 { 
     private float currentHealth;
@@ -13,6 +13,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private WaypointManager waypointManager;
     public Action OnDeath;
     private bool isInitialized = false;
+    
+    public AudioSource audioSource;
+    public AudioClip DeathSound, SpawnSound, TakeDamaneSound;
 
     private void Awake()
     {
@@ -24,10 +27,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void Initialize(EnemyData data)
     {
+        if(!audioSource) audioSource = GetComponent<AudioSource>();
         isInitialized = true;
         enemyData = data;
         currentHealth = data.maxHealth;
-        
+        audioSource.PlayOneShot(SpawnSound);
         if (enemyHPbar != null)
         {
             enemyHPbar.UpdateHPbar(enemyData.maxHealth, currentHealth);
@@ -48,6 +52,7 @@ public class EnemyHealth : MonoBehaviour
         
         currentHealth -= amount;
         Debug.Log(gameObject.name + " dostal obrazenia HP: " + currentHealth);
+        audioSource.PlayOneShot(TakeDamaneSound);
 
         if (currentHealth <= 0)
         {
@@ -59,22 +64,28 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die(bool isKilled = true)
     {
-        if (PlayerStats.Instance != null)
+        if (isKilled)
         {
-            PlayerStats.Instance.AddCoins(enemyData.coinReward);
-            
-            if (enemyData.giveLife)
+            if (PlayerStats.Instance != null)
             {
-                PlayerStats.Instance.AddLives();
+                PlayerStats.Instance.AddCoins(enemyData.coinReward);
+                audioSource.PlayOneShot(DeathSound);
+
+                if (enemyData.giveLife)
+                {
+                    PlayerStats.Instance.AddLives();
+                }
+            }
+
+            if (WaveManager.Instance != null)
+            {
+                WaveManager.Instance.OnEnemyDied();
             }
         }
 
-        if (WaveManager.Instance != null)
-        {
-            WaveManager.Instance.OnEnemyDied();
-        }
+        Debug.Log("Death Invoke");
         OnDeath.Invoke();
         Destroy(gameObject);
     }

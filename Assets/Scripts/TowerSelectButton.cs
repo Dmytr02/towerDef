@@ -6,12 +6,15 @@ public class TowerSelectButton : MonoBehaviour
     [SerializeField] BaseTower towerData;
     [SerializeField] BuildTowerManager buildTowerManager;
     [SerializeField] MultiTouchEventTrigger eventTrigger;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
     
     static Action onTowerSelected;
     private void Start()
     {
         eventTrigger.OnPointerDownEvent.AddListener(touch =>
         {
+            audioSource.PlayOneShot(audioClip);
             onTowerSelected?.Invoke();
             
             if (BuildTowerManager.SelectedTower == towerData)

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int startCoins = 5;
     [SerializeField] private UnityEvent Death;
     private int _coins;
+    
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip TakeDamageClip, LoseClip;
 
     public int coins
     {
@@ -36,6 +40,14 @@ public class PlayerStats : MonoBehaviour
         coins = startCoins;
         UpdateUI();
         mainCamera = Camera.main;
+    }
+
+    private void Start()
+    {
+        Death.AddListener(() =>
+        {
+            audioSource.PlayOneShot(LoseClip);
+        });
     }
 
     void Update() {
@@ -72,6 +84,7 @@ public class PlayerStats : MonoBehaviour
 
     public void RemoveLife()
     {
+        audioSource.PlayOneShot(TakeDamageClip);
         lives--;
         if (lives <= 0) Death?.Invoke();
         UpdateUI();

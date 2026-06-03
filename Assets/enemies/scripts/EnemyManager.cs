@@ -25,7 +25,11 @@ public class EnemyManager : MonoBehaviour
         if (health != null)
         {
             health.Initialize(data);
-            health.OnDeath += () => enemies.Remove(enemyObj);
+            health.OnDeath += () =>
+            {
+                Debug.Log("remowe enemy");
+                enemies.Remove(enemyObj);
+            };
         }
 
         WaypointManager waypoint = enemyObj.GetComponent<WaypointManager>();
