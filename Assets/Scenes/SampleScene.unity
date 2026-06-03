@@ -1151,6 +1151,7 @@ MonoBehaviour:
   lives: 3
   lifeText: {fileID: 1948786913}
   coinsText: {fileID: 1338378988}
+  waveText: {fileID: 68678959}
   clickDamage: 5
   clickCooldown: 0.7
 --- !u!224 &143089544
@@ -7420,7 +7421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1152294563}
   img: {fileID: 1278927647}
-  distance: 0.05
+  distance: 0.15
 --- !u!1 &1154765690
 GameObject:
   m_ObjectHideFlags: 0

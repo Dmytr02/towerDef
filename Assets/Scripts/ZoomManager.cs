@@ -24,7 +24,7 @@ public class ZoomManager : MonoBehaviour
     {
         cam.transform.position = pos;
         cam.transform.rotation = Camera.main.transform.rotation;
-        cam.transform.position -= cam.transform.forward*distance;
+        cam.transform.position -= cam.transform.forward*distance*SceneGenerator.m_transform.lossyScale.x;
         cam.Render();
     }
 }
