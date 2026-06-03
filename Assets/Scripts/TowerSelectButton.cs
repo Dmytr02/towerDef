@@ -10,6 +10,12 @@ public class TowerSelectButton : MonoBehaviour
     [SerializeField] AudioClip audioClip;
     
     static Action onTowerSelected;
+
+    private void Awake()
+    {
+        onTowerSelected = null;
+    }
+
     private void Start()
     {
         eventTrigger.OnPointerDownEvent.AddListener(touch =>
