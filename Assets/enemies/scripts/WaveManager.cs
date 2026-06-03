@@ -111,7 +111,8 @@ public class WaveManager : MonoBehaviour
                 return entry.enemyData;
         }
 
-        return pool[0].enemyData;
+        if (!pool[0].enemyData.isBoss || !bossAlreadySpawned) return pool[0].enemyData;
+        return null;
     }
 
     /*private EnemyData GetScaledEnemyData(EnemyData original, int waveIndex)
@@ -137,6 +138,6 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        waveInfoText.text = $"wave {totalWavesCount + 1}";
+        waveInfoText.text = $"{totalWavesCount + 1}";
     }
 }

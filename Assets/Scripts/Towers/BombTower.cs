@@ -7,8 +7,8 @@ public class BombTower : BaseTower {
 			CreateProjectile();
 		}
 	}
-	public override string GetStats()
+	public override string GetStats(bool isUpgrade = true)
 	{
-		return $"damage: {data.damage} {(data.nextLvl != null ? $"->{data.nextLvl.damage}" : "")}\nrange: {data.range} {(data.nextLvl != null ? $"->{data.nextLvl.range}" : "")}\nattack speed: {data.attackSpeed} {(data.nextLvl != null ? $"->{data.nextLvl.attackSpeed}" : "")}\nexplosive radius: {data.aoeRadius} {(data.nextLvl != null ? $"->{data.nextLvl.aoeRadius}" : "")}";
+		return base.GetStats(isUpgrade) + $"damage: {data.damage} {((data.nextLvl != null && isUpgrade) ? $"->{data.nextLvl.damage}" : "")}\nrange: {data.range} {((data.nextLvl != null && isUpgrade) ? $"->{data.nextLvl.range}" : "")}\nattack speed: {data.attackSpeed} {(data.nextLvl != null&& isUpgrade ? $"->{data.nextLvl.attackSpeed}" : "")}\nexplosive radius: {data.aoeRadius} {(data.nextLvl != null&& isUpgrade ? $"->{data.nextLvl.aoeRadius}" : "")}";
 	}
 }

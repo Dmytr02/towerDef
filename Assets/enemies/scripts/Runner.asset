@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d04609ad118ed04c8495cfbff1e76ca, type: 3}
   m_Name: Runner
   m_EditorClassIdentifier: 
-  enemyName: Runner
   prefab: {fileID: 4844136295289369648, guid: b6fd1693f1fc60c49907d71240242e22, type: 3}
-  maxHealth: 30
+  _maxHealth: 30
   moveSpeed: 5
-  damage: 3
   coinReward: 10
   giveLife: 0
   isBoss: 0

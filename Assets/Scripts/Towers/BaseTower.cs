@@ -49,10 +49,9 @@ public abstract class BaseTower : MonoBehaviour {
 
 	protected abstract void Shoot();
 
-	public virtual string GetStats()
+	public virtual string GetStats(bool isUpgrade = true)
 	{
-		return "";
-		
+		return !isUpgrade ? ("price: " + data.cost + "\n"):(data.nextLvl != null&& isUpgrade ? $"price: {data.nextLvl.cost}\n" : "");
 	}
 
 	private void OnDrawGizmosSelected() {

@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d04609ad118ed04c8495cfbff1e76ca, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  enemyName: Boss
   prefab: {fileID: 3667425554067483169, guid: 911aca6dc1c45ea43b34a8d8a4b27752, type: 3}
-  maxHealth: 500
-  moveSpeed: 5
-  damage: 20
+  _maxHealth: 500
+  moveSpeed: 1.75
   coinReward: 10
   giveLife: 1
   isBoss: 1

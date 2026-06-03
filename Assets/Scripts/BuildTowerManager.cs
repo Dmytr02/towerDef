@@ -3,14 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BuildTowerManager : MonoBehaviour
 {
+    public static BuildTowerManager Instance;
     public static BitArr2D possibleValues;
-    [SerializeReference] public static BaseTower SelectedTower;
+    [SerializeReference] private static BaseTower _SelectedTower;
+
+    public static BaseTower SelectedTower
+    {
+        get => _SelectedTower;
+        set
+        {
+            _SelectedTower = value;
+            if (value != null)
+            {
+                Instance._prewievPanel.SetActive(true);
+                Instance._prewievPanelText.text = value.GetStats(false);
+            }else
+                Instance._prewievPanel.SetActive(false);
+        }
+    }
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
@@ -18,6 +35,8 @@ public class BuildTowerManager : MonoBehaviour
     public MultiTouchEventTrigger MultiTouch;
     private Vector2 lastPos =  new(-1, -1); 
     
+    [SerializeField] private GameObject _prewievPanel;
+    [SerializeField] private TMP_Text _prewievPanelText;
     public void CastToTryBuild(PointerEventData touch)
     {
         ZoomManager.instance.img.gameObject.SetActive(false);
@@ -134,7 +153,8 @@ public class BuildTowerManager : MonoBehaviour
     private void Awake()
     {
         possibleValues = new BitArr2D(55, 55);
-        
+        if(Instance ==  null)  Instance = this;
+        else Destroy(this);
     }
 
     

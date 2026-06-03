@@ -13,7 +13,7 @@ public class WaveData : ScriptableObject
 
     public List<EnemyPoolEntry> enemyPool;
 
-    [SerializeField] private int _enemyCount = 10;
+    [SerializeField] private int _enemyCount = 1;
 
     public int enemyCount
     {
