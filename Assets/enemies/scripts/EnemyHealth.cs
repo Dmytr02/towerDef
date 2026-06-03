@@ -86,7 +86,7 @@ public class EnemyHealth : MonoBehaviour
         }
 
         Debug.Log("Death Invoke");
-        OnDeath.Invoke();
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 }

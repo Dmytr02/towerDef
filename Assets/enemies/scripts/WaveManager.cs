@@ -15,8 +15,8 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private float healthScalePerWave = 0.15f;
 
-    private int currentWaveIndex = 0;
-    private int totalWavesCount = 0;
+    public int currentWaveIndex = 0;
+    public int totalWavesCount = 0;
     private bool waveInProgress = false;
     private int enemiesAlive = 0;
 

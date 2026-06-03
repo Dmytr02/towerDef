@@ -1076,6 +1076,7 @@ MonoBehaviour:
   lives: 3
   lifeText: {fileID: 1948786913}
   coinsText: {fileID: 1338378988}
+  waveText: {fileID: 68678959}
   clickDamage: 5
   clickCooldown: 0.7
 --- !u!224 &143089544
@@ -12407,6 +12408,8 @@ MonoBehaviour:
   startWaveButton: {fileID: 1961009337}
   waveInfoText: {fileID: 484247233}
   healthScalePerWave: 0.15
+  currentWaveIndex: 0
+  totalWavesCount: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

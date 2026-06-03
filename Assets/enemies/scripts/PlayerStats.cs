@@ -27,6 +27,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI lifeText;
     [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private TextMeshProUGUI waveText;
 
     [Header("Click Attack Settings")]
     [SerializeField] private float clickDamage = 5f;
@@ -47,6 +48,13 @@ public class PlayerStats : MonoBehaviour
         Death.AddListener(() =>
         {
             audioSource.PlayOneShot(LoseClip);
+            print("death listener invoke");
+            if (WaveManager.Instance.totalWavesCount + 1 > PlayerPrefs.GetInt("best_wave", 0))
+            {
+                PlayerPrefs.SetInt("best_wave", WaveManager.Instance.totalWavesCount+1);
+                waveText.text = $"New best wave: {WaveManager.Instance.totalWavesCount+1}";
+            }else waveText.text = $"Best wave: {PlayerPrefs.GetInt("best_wave",0)}\nCurrent wave: {WaveManager.Instance.totalWavesCount+1}";
+            
         });
     }
 
@@ -67,9 +75,9 @@ public class PlayerStats : MonoBehaviour
                 enemy.TakeDamage(clickDamage);
                 Debug.Log("hitted " + hit.collider.name);
 
-                nextClickTime = Time.time + clickCooldown;
             }
         }
+        nextClickTime = Time.time + clickCooldown;
     }
 
     public void AddCoins(int amount) {
@@ -84,6 +92,7 @@ public class PlayerStats : MonoBehaviour
 
     public void RemoveLife()
     {
+        if (lives <= 0) return;
         audioSource.PlayOneShot(TakeDamageClip);
         lives--;
         if (lives <= 0) Death?.Invoke();
