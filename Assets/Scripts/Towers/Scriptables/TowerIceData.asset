@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   mesh: {fileID: 3203270684752679736, guid: b98fe27f37716014bbd92e3658f518ed, type: 3}
-  cost: 0
+  cost: 3
   recoverCost: 0
   size: {x: 2, y: 2}
   nextLvl: {fileID: 11400000, guid: 56fb9a54b88c8864da652139e0e7070e, type: 2}

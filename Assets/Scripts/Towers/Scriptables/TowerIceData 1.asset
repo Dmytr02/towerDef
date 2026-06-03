@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   mesh: {fileID: 1494647003027084610, guid: 81e92455398966546b69d68e0ddcda50, type: 3}
-  cost: 0
+  cost: 5
   recoverCost: 0
   size: {x: 2, y: 2}
-  nextLvl: {fileID: 0}
+  nextLvl: {fileID: 11400000, guid: b09556cd858d9ab4cb914430faae54e6, type: 2}
   damage: 0
   attackSpeed: 0.01
   range: 0.15

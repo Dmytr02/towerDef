@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   mesh: {fileID: 3203270684752679736, guid: b98fe27f37716014bbd92e3658f518ed, type: 3}
-  cost: 1
+  cost: 5
   recoverCost: 0
   size: {x: 3, y: 3}
   nextLvl: {fileID: 0}
-  damage: 10
+  damage: 36
   attackSpeed: 4
   range: 0.22
-  aoeRadius: 0.22
+  aoeRadius: 0.06
   projectilePrefab: {fileID: 4658489104485532085, guid: ff8f25ec102083847b109a8126789e87, type: 3}
   projectileSpeed: 2
   arcHeight: 2
