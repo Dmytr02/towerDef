@@ -13,8 +13,8 @@ public class IceTower : BaseTower {
 		}
 	}
 	
-	public override string GetStats()
+	public override string GetStats(bool isUpgrade = true)
 	{
-		return $"slow straight: {data.slowAmount} {(data.nextLvl != null ? $"->{data.nextLvl.slowAmount}" : "")}\nrange: {data.range} {(data.nextLvl != null ? $"->{data.nextLvl.range}" : "")}";
+		return base.GetStats(isUpgrade) + $"slow straight: {data.slowAmount} {(data.nextLvl != null&& isUpgrade ? $"->{data.nextLvl.slowAmount}" : "")}\nrange: {data.range} {(data.nextLvl != null&& isUpgrade ? $"->{data.nextLvl.range}" : "")}";
 	}
 }

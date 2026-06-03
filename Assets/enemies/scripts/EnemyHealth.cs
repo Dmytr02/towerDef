@@ -37,6 +37,8 @@ public class EnemyHealth : MonoBehaviour
             enemyHPbar.UpdateHPbar(enemyData.maxHealth, currentHealth);
         }
     }
+    
+    
 
     private void Update()
     {

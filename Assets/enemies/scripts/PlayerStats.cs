@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
         set
         {
             _coins = value; 
-            coinsText.text =$"coins {_coins.ToString()}";
+            coinsText.text =$"{_coins.ToString()}";
         }
     }
     public int lives = 3;
@@ -103,7 +103,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (lifeText != null)
         {
-            lifeText.text = $"lives {lives}";
+            lifeText.text = $"{lives}";
         }
     }
 }

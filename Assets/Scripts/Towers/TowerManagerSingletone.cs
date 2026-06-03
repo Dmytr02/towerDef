@@ -23,6 +23,8 @@ public class TowerManagerSingletone : MonoBehaviour
                 visualPanel.SetActive(true);
                 visualBuildPanel.SetActive(false);
                 towerDescription.text = value.GetStats();
+                if (value.data.nextLvl) upgradeButton.gameObject.SetActive(true);
+                else upgradeButton.gameObject.SetActive(false);
             }
             else
             {
@@ -36,6 +38,8 @@ public class TowerManagerSingletone : MonoBehaviour
 
     public GameObject visualPanel;
     public GameObject visualBuildPanel;
+    
+    [SerializeField] private MultiTouchEventTrigger upgradeButton;
     
     void Awake()
     {
@@ -116,7 +120,7 @@ public class TowerManagerSingletone : MonoBehaviour
             //selectedTower.transform.localScale = oldScale;
 
 
-
+            selectedTower = selectedTower;
             print("tower updated: ");
         } else {
             print("No money");

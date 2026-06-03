@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Wave 3
   m_EditorClassIdentifier: 
   enemyPool:
-  - enemyData: {fileID: 11400000, guid: 45a084f698d28714a85ecfa5a4a3c45c, type: 2}
-    spawnWeight: 1
   - enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
-    spawnWeight: 0.2
-  enemyCount: 2
-  spawnInterval: 1
+    spawnWeight: 0.3
+  - enemyData: {fileID: 11400000, guid: cb9e1980f26f0f44e9c1274b8beea145, type: 2}
+    spawnWeight: 0.4
+  - enemyData: {fileID: 11400000, guid: 5e4fc555d74285d4f9fbde5aa9f6ec72, type: 2}
+    spawnWeight: 0.3
+  _enemyCount: 1
+  _spawnInterval: 1

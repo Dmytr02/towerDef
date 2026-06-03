@@ -13,6 +13,16 @@ public class WaveData : ScriptableObject
 
     public List<EnemyPoolEntry> enemyPool;
 
-    public int enemyCount = 10;          
-    public float spawnInterval = 1f;    
+    [SerializeField] private int _enemyCount = 1;
+
+    public int enemyCount
+    {
+        get => _enemyCount * (10 + WaveManager.Instance.totalWavesCount * 5);
+    }
+    [SerializeField] private float _spawnInterval = 1f;
+
+    public float spawnInterval
+    {
+        get => _spawnInterval * Mathf.Max(0.3f, 1.0f - WaveManager.Instance.totalWavesCount * 0.03f);
+    }
 }

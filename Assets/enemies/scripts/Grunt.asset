@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d04609ad118ed04c8495cfbff1e76ca, type: 3}
   m_Name: Grunt
   m_EditorClassIdentifier: 
-  enemyName: Grunt
   prefab: {fileID: 2886186766392560016, guid: 9a1fd254a90b8e74298e75f987167986, type: 3}
-  maxHealth: 50
-  moveSpeed: 5
+  _maxHealth: 50
+  moveSpeed: 2.5
   coinReward: 10
   giveLife: 0
   isBoss: 0

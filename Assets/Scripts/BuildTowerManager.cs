@@ -3,14 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BuildTowerManager : MonoBehaviour
 {
+    public static BuildTowerManager Instance;
     public static BitArr2D possibleValues;
-    [SerializeReference] public static BaseTower SelectedTower;
+    [SerializeReference] private static BaseTower _SelectedTower;
+
+    public static BaseTower SelectedTower
+    {
+        get => _SelectedTower;
+        set
+        {
+            _SelectedTower = value;
+            if (value != null)
+            {
+                Instance._prewievPanel.SetActive(true);
+                Instance._prewievPanelText.text = value.GetStats(false);
+            }else
+                Instance._prewievPanel.SetActive(false);
+        }
+    }
     public Mesh previewMesh;
     public Material previewMaterial;
     public Material previewMaterialBlocked;
@@ -18,6 +35,8 @@ public class BuildTowerManager : MonoBehaviour
     public MultiTouchEventTrigger MultiTouch;
     private Vector2 lastPos =  new(-1, -1); 
     
+    [SerializeField] private GameObject _prewievPanel;
+    [SerializeField] private TMP_Text _prewievPanelText;
     public void CastToTryBuild(PointerEventData touch)
     {
         ZoomManager.instance.img.gameObject.SetActive(false);
@@ -134,6 +153,8 @@ public class BuildTowerManager : MonoBehaviour
     private void Awake()
     {
         possibleValues = new BitArr2D(55, 55);
+        if(Instance ==  null)  Instance = this;
+        else Destroy(this);
     }
 
     
@@ -157,11 +178,16 @@ public class BuildTowerManager : MonoBehaviour
         if (plane.Raycast(ray, out float enter))
         {
             CanBuild(SceneGenerator.m_transform.InverseTransformPoint(ray.GetPoint(enter)), out Vector2 position, out Material mat);
+            
             Graphics.DrawMeshInstanced(previewMesh, 0, mat, new[]
             {
-                Matrix4x4.TRS(
-                    SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
+                Matrix4x4.TRS(SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
                     new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.data.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.data.size.y))
+            });
+            Graphics.DrawMeshInstanced(TowerManagerSingletone.Instance.visualizeMesh, 0, TowerManagerSingletone.Instance.visualizeMaterial, new List<Matrix4x4>()
+            {
+                Matrix4x4.TRS(SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
+                    SelectedTower.data.range*Vector3.one)
             });
             if (lastPos != position)
             {

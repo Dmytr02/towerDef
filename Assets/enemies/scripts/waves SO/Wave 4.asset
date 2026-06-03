@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346a23bdca1643b4f98342f1d85b27a3, type: 3}
   m_Name: Wave 4
   m_EditorClassIdentifier: 
-  enemyPool: []
-  enemyCount: 10
-  spawnInterval: 1
-  delayBeforeWave: 1
+  enemyPool:
+  - enemyData: {fileID: 11400000, guid: 45a084f698d28714a85ecfa5a4a3c45c, type: 2}
+    spawnWeight: 1
+  _enemyCount: 1
+  _spawnInterval: 1
