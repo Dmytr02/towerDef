@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 347267d44e4fcfb46ba2b56b23cdf9dc, type: 3}
-  m_Name: TowerBowDataLvl2
+  m_Name: TowerBowDataLvl2 1
   m_EditorClassIdentifier: 
   towerName: 1
-  mesh: {fileID: 1494647003027084610, guid: 81e92455398966546b69d68e0ddcda50, type: 3}
-  cost: 4
+  mesh: {fileID: -4528719527234066744, guid: 03d67a4f63236b040974204582f80e33, type: 3}
+  cost: 6
   recoverCost: 0
   size: {x: 2, y: 2}
   nextLvl: {fileID: 0}
-  damage: 30
-  attackSpeed: 0.5
-  range: 0.15
+  damage: 40
+  attackSpeed: 0.3
+  range: 0.2
   aoeRadius: 0
   projectilePrefab: {fileID: 4658489104485532085, guid: ff8f25ec102083847b109a8126789e87, type: 3}
   projectileSpeed: 2
