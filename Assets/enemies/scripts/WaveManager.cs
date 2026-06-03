@@ -15,8 +15,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private float healthScalePerWave = 0.15f;
 
-    private int currentWaveIndex = 0;
-    private int totalWavesCount = 0;
+    public int totalWavesCount = 0;
     private bool waveInProgress = false;
     private int enemiesAlive = 0;
 
@@ -39,7 +38,7 @@ public class WaveManager : MonoBehaviour
     public void StartNextWave()
     {
         startWaveButton.interactable = false;
-        StartCoroutine((RunWave(waves[currentWaveIndex])));
+        StartCoroutine((RunWave(waves[totalWavesCount%waves.Count])));
     }
 
     private IEnumerator RunWave(WaveData wave)
@@ -61,25 +60,20 @@ public class WaveManager : MonoBehaviour
                 bossSpawned = true;
             }
 
-            EnemyData scaledData = GetScaledEnemyData(baseData, totalWavesCount);
+            //EnemyData scaledData = GetScaledEnemyData(baseData, totalWavesCount);
 
             enemiesAlive++;
 
-            EnemyManager.Instance.SpawnEnemy(scaledData);
-
+            EnemyManager.Instance.SpawnEnemy(baseData);
+        
             yield return new WaitForSeconds(wave.spawnInterval);
         }
 
         yield return new WaitUntil(() => enemiesAlive <= 0);
 
         waveInProgress = false;
-        currentWaveIndex++;
         totalWavesCount++;
 
-        if (currentWaveIndex >= waves.Count)
-        {
-            currentWaveIndex = 0;
-        }
 
         UpdateUI();
 
@@ -143,9 +137,6 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (currentWaveIndex < waves.Count)
-        {
-            waveInfoText.text = $"wave {totalWavesCount + 1}";
-        }
+        waveInfoText.text = $"wave {totalWavesCount + 1}";
     }
 }

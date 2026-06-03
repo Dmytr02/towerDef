@@ -36,4 +36,9 @@ public class EnemyManager : MonoBehaviour
         if (waypoint != null)
             waypoint.Initialize(data);
     }
+
+    private float GetMaxHealth(EnemyData data)
+    {
+        return data.maxHealth * (1 + (((int)WaveManager.Instance.)));
+    }
 }
