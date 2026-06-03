@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d04609ad118ed04c8495cfbff1e76ca, type: 3}
-  m_Name: Tank
+  m_Script: {fileID: 11500000, guid: 346a23bdca1643b4f98342f1d85b27a3, type: 3}
+  m_Name: Wave 6
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8013868719411732856, guid: bf0036c98e5af9040b597f2005b2c3d0, type: 3}
-  _maxHealth: 120
-  moveSpeed: 1.25
-  coinReward: 5
-  giveLife: 0
-  isBoss: 0
+  enemyPool:
+  - enemyData: {fileID: 11400000, guid: 1f3c1cf49056b2b42b7a01e9127a60d2, type: 2}
+    spawnWeight: 1
+  _enemyCount: 2
+  _spawnInterval: 1

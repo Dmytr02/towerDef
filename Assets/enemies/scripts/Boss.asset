@@ -15,6 +15,6 @@ MonoBehaviour:
   prefab: {fileID: 3667425554067483169, guid: 911aca6dc1c45ea43b34a8d8a4b27752, type: 3}
   _maxHealth: 500
   moveSpeed: 1.75
-  coinReward: 10
+  coinReward: 50
   giveLife: 1
   isBoss: 1

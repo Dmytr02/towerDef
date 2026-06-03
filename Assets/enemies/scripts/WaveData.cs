@@ -17,9 +17,8 @@ public class WaveData : ScriptableObject
 
     public int enemyCount
     {
-        get => _enemyCount * (10 + WaveManager.Instance.totalWavesCount * 5);
-    }
-    [SerializeField] private float _spawnInterval = 1f;
+        get => _enemyCount * (5 + WaveManager.Instance.totalWavesCount * 4);
+    } [SerializeField] private float _spawnInterval = 1f;
 
     public float spawnInterval
     {
