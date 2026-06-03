@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d9493a161c9094d9697fe589add103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCoins: 5
+  startCoins: 30
   Death:
     m_PersistentCalls:
       m_Calls:
@@ -12970,8 +12970,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: 01acc2b0a3f6b3940b5f9dc228440d91, type: 2}
   - {fileID: 11400000, guid: 8db251721e442f84780a51c3db5e842f, type: 2}
+  - {fileID: 11400000, guid: 782fca40f547dd74d8893984a153c66c, type: 2}
+  - {fileID: 11400000, guid: 8db251721e442f84780a51c3db5e842f, type: 2}
+  - {fileID: 11400000, guid: 782fca40f547dd74d8893984a153c66c, type: 2}
+  - {fileID: 11400000, guid: 01acc2b0a3f6b3940b5f9dc228440d91, type: 2}
+  - {fileID: 11400000, guid: 01acc2b0a3f6b3940b5f9dc228440d91, type: 2}
+  - {fileID: 11400000, guid: bb75c29b7a5ff6545b9af4c8f59412a1, type: 2}
+  - {fileID: 11400000, guid: 8db251721e442f84780a51c3db5e842f, type: 2}
+  - {fileID: 11400000, guid: 883207b9031bdd341bade0b99057f385, type: 2}
+  - {fileID: 11400000, guid: 01acc2b0a3f6b3940b5f9dc228440d91, type: 2}
+  - {fileID: 11400000, guid: c31c8ab302c7ea948b9d5e9729260380, type: 2}
   startWaveButton: {fileID: 1961009337}
   waveInfoText: {fileID: 484247233}
   healthScalePerWave: 0.15

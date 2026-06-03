@@ -17,7 +17,7 @@ public class EnemyData : ScriptableObject
 
     public float maxHealth
     {
-        get => maxHealth * (1 + Mathf.Pow(WaveManager.Instance.totalWavesCount/5, 0.1f));
+        get => _maxHealth * (1 + Mathf.Pow(WaveManager.Instance.totalWavesCount/5, 0.1f));
     }
     public float moveSpeed = 2f;
 
