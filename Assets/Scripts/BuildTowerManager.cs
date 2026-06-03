@@ -134,6 +134,7 @@ public class BuildTowerManager : MonoBehaviour
     private void Awake()
     {
         possibleValues = new BitArr2D(55, 55);
+        
     }
 
     
@@ -157,11 +158,16 @@ public class BuildTowerManager : MonoBehaviour
         if (plane.Raycast(ray, out float enter))
         {
             CanBuild(SceneGenerator.m_transform.InverseTransformPoint(ray.GetPoint(enter)), out Vector2 position, out Material mat);
+            
             Graphics.DrawMeshInstanced(previewMesh, 0, mat, new[]
             {
-                Matrix4x4.TRS(
-                    SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
+                Matrix4x4.TRS(SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
                     new Vector3(SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x*SelectedTower.data.size.x, SceneGenerator.m_transform.lossyScale.x/SceneGenerator._gridSize.x, SceneGenerator.m_transform.lossyScale.z/SceneGenerator._gridSize.y*SelectedTower.data.size.y))
+            });
+            Graphics.DrawMeshInstanced(TowerManagerSingletone.Instance.visualizeMesh, 0, TowerManagerSingletone.Instance.visualizeMaterial, new List<Matrix4x4>()
+            {
+                Matrix4x4.TRS(SceneGenerator.m_transform.localToWorldMatrix.MultiplyPoint(new Vector3(position.x - 0.5f, 1f, position.y - 0.5f)), SceneGenerator.m_transform.rotation,
+                    SelectedTower.data.range*Vector3.one)
             });
             if (lastPos != position)
             {
