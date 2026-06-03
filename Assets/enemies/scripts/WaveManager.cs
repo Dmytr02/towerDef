@@ -114,7 +114,7 @@ public class WaveManager : MonoBehaviour
         return pool[0].enemyData;
     }
 
-    private EnemyData GetScaledEnemyData(EnemyData original, int waveIndex)
+    /*private EnemyData GetScaledEnemyData(EnemyData original, int waveIndex)
     {
         EnemyData scaled = ScriptableObject.CreateInstance<EnemyData>();
 
@@ -128,7 +128,7 @@ public class WaveManager : MonoBehaviour
         scaled.moveSpeed = original.moveSpeed;
 
         return scaled;
-    }
+    }*/
 
     public void OnEnemyDied()
     {

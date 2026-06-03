@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -12,7 +13,12 @@ public class EnemyData : ScriptableObject
     public GameObject prefab;
 
     [Header("stats")]
-    public float maxHealth = 100f;
+    [SerializeField] private float _maxHealth = 100f;
+
+    public float maxHealth
+    {
+        get => maxHealth * (1 + Mathf.Pow(WaveManager.Instance.totalWavesCount/5, 0.1f));
+    }
     public float moveSpeed = 2f;
 
     [Header("rewards")]
